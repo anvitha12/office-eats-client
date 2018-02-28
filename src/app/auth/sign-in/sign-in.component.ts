@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../shared/services/user.service';
+import { User } from '../../shared/models/user'
 
 @Component({
   selector: 'app-sign-in',
@@ -7,8 +9,9 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
+  user: User;
   formGroup: FormGroup;
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.formGroup = new FormGroup({
@@ -25,6 +28,10 @@ export class SignInComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.formGroup);
+    this.userService
+    .authorize(this.formGroup.value)
+    .then(() => {
+     
+    });
   }
 }
