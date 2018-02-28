@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule , ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { BrowserModule, Title }  from '@angular/platform-browser';
 
 import { SignInRoutingModule } from './sign-in-routing.module';
 import { SignInComponent } from './sign-in.component';
@@ -18,6 +19,7 @@ import { UserService } from '../../shared/services/user.service';
   ],
   declarations: [SignInComponent],
   providers: [
+    Title,
     UserService
   ]
 })

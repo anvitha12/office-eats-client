@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule , ReactiveFormsModule} from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 
 import { ForgotPasswordRoutingModule } from './forgot-password-routing.module';
@@ -18,6 +19,7 @@ import { UserService } from '../../shared/services/user.service';
   ],
   declarations: [ForgotPasswordComponent],
   providers: [
+    Title,
     UserService
   ]
 })

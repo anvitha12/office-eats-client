@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { UserService } from '../../shared/services/user.service';
 import { User } from '../../shared/models/user'
 
@@ -11,9 +12,11 @@ import { User } from '../../shared/models/user'
 export class SignUpComponent implements OnInit {
   user: User;
   formGroup: FormGroup;
-  constructor(private userService: UserService) { }
+  constructor(private titleService: Title,
+    private userService: UserService) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Sign Up | CMS');
     this.formGroup = new FormGroup({
       firstName: new FormControl('', [
         Validators.required

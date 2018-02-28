@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { UserService } from '../../shared/services/user.service';
 import { User } from '../../shared/models/user'
 
@@ -12,9 +13,11 @@ export class ForgotPasswordComponent implements OnInit {
 
   user: User;
   formGroup: FormGroup;
-  constructor(private userService: UserService) { }
+  constructor(private titleService: Title,
+    private userService: UserService) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Forgot Password | CMS');
     this.formGroup = new FormGroup({
       email: new FormControl('', [
         Validators.required,
