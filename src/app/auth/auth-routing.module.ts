@@ -13,6 +13,9 @@ const routes: Routes = [
       },
       {
         path: 'sign-up', loadChildren: './sign-up/sign-up.module#SignUpModule'
+      },
+      {
+        path: 'forgot-password', loadChildren: './forgot-password/forgot-password.module#ForgotPasswordModule'
       }
     ]
   }
