@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
-import { User} from '../models/user';
+import { User, CreateUserResponse } from '../models/user';
 
 @Injectable()
 export class UserService {
@@ -21,7 +21,7 @@ export class UserService {
 
   createUser(user: User) {
     return this.httpClient
-      .post(
+      .post<CreateUserResponse>(
         this.createUserUrl,
         JSON.stringify(user)
       )

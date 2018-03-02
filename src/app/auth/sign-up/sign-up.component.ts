@@ -45,8 +45,15 @@ export class SignUpComponent implements OnInit {
   onSubmit() {
     this.userService
     .createUser(this.formGroup.value)
-    .subscribe((res) => {
-      console.log(res);
+    .subscribe(data=>{
+      if(data.status == 'success'){
+        alert("Successfully registerd")
+        this.formGroup.reset();
+        this.formGroup.patchValue({
+          user_role_type: 'manager',
+          gender: ''
+        })
+      }
     });
   }
 }
