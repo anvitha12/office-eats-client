@@ -28,7 +28,7 @@ export class SignUpComponent implements OnInit {
       gender: new FormControl('', [
         Validators.required
       ]),
-      email: new FormControl('', [
+      email_id: new FormControl('', [
         Validators.required,
         Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)
       ]),
@@ -45,8 +45,8 @@ export class SignUpComponent implements OnInit {
   onSubmit() {
     this.userService
     .createUser(this.formGroup.value)
-    .subscribe(() => {
-     
+    .subscribe((res) => {
+      console.log(res);
     });
   }
 }

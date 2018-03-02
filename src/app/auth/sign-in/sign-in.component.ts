@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { UserService } from '../../shared/services/user.service';
-import { User } from '../../shared/models/user'
+import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'app-sign-in',
@@ -18,7 +18,7 @@ export class SignInComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Sign In | CMS');
     this.formGroup = new FormGroup({
-      email: new FormControl('', [
+      email_id: new FormControl('', [
         Validators.required,
         Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)
       ]),
