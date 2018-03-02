@@ -1,32 +1,46 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import 'rxjs/add/operator/map';
 
-import { User} from '../models/user'
-
-import 'rxjs/add/operator/toPromise';
+import { User} from '../models/user';
 
 @Injectable()
 export class UserService {
 
-  constructor(private http: Http) { }
-  private headers = new Headers({ 'Content-Type': 'application/json' });
+  constructor(private httpClient: HttpClient) { }
   private authorizeUrl = 'api/authorize';
-  private createUserUrl = 'api/createUser';
+  private createUserUrl = 'http://dev.sparcteam.com/catering-project/RegisterUserController/add_users';
 
-  authorize(user: User): Promise<User> {
-    return this.http
-      .post(this.authorizeUrl, JSON.stringify(user), { headers: this.headers })
-      .toPromise()
-      .then(res => res.json().data as User)
-      .catch(this.handleError);
+  authorize(user: User){
+    return this.httpClient
+      .post(this.authorizeUrl, JSON.stringify(user))
+      .map(res =>{
+        console.log(res)
+      })
+      
   }
 
-  createUser(user: User): Promise<User> {
-    return this.http
-      .post(this.createUserUrl, JSON.stringify(user), { headers: this.headers })
-      .toPromise()
-      .then(res => res.json().data as User)
-      .catch(this.handleError);
+  createUser(user: User) {
+    var form = new FormData();
+    form.append('email', user.email);
+    form.append('gender', user.gender);
+    form.append('firstname', user.firstname);
+    form.append('lastname', user.lastname);
+    form.append('phone', user.phone);
+    form.append('password', user.password);
+    return this.httpClient
+      .post(
+        this.createUserUrl, 
+        form,
+        {
+          headers: new HttpHeaders({
+            'Content-Type':  'application/x-www-form-urlencoded;charset=UTF-8',
+          })
+        }
+      )
+      .map(res => {
+        console.log(res)
+      })
   }
 
   private handleError(error: any): Promise<any> {

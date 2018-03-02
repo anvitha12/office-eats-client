@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { UserService } from '../../shared/services/user.service';
-import { User } from '../../shared/models/user'
+import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'app-sign-up',
@@ -18,14 +18,21 @@ export class SignUpComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Sign Up | CMS');
     this.formGroup = new FormGroup({
-      firstName: new FormControl('', [
+      user_role_type: new FormControl('manager'),
+      firstname: new FormControl('', [
+        Validators.required
+      ]),
+      lastname: new FormControl('', [
+        Validators.required
+      ]),
+      gender: new FormControl('', [
         Validators.required
       ]),
       email: new FormControl('', [
         Validators.required,
         Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)
       ]),
-      lastName: new FormControl('', [
+      phone: new FormControl('', [
         Validators.required
       ]),
       password: new FormControl('', [
@@ -38,7 +45,7 @@ export class SignUpComponent implements OnInit {
   onSubmit() {
     this.userService
     .createUser(this.formGroup.value)
-    .then(() => {
+    .subscribe(() => {
      
     });
   }

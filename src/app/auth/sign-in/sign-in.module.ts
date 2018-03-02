@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule , ReactiveFormsModule} from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule, Title }  from '@angular/platform-browser';
 
 import { SignInRoutingModule } from './sign-in-routing.module';
@@ -14,7 +14,7 @@ import { UserService } from '../../shared/services/user.service';
     CommonModule,
     SignInRoutingModule,
     ReactiveFormsModule,
-    HttpModule,
+    HttpClientModule,
     NgBootstrapFormValidationModule
   ],
   declarations: [SignInComponent],

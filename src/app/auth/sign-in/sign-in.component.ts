@@ -31,10 +31,10 @@ export class SignInComponent implements OnInit {
   }
 
   onSubmit() {
-    this.userService
-      .authorize(this.formGroup.value)
-      .then(() => {
+    // this.userService
+    //   .authorize(this.formGroup.value)
+    //   .subscribe(() => {
 
-      });
+    //   });
   }
 }
