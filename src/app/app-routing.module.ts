@@ -9,6 +9,10 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: './auth/auth.module#AuthModule'
   },
+  {
+    path: 'manager',
+    loadChildren: './manager/manager.module#ManagerModule'
+  }
 ];
 
 @NgModule({
