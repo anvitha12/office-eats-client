@@ -8,24 +8,40 @@ import { User, CreateUserResponse } from '../models/user';
 export class UserService {
 
   constructor(private httpClient: HttpClient) { }
-  private authorizeUrl = 'api/authorize';
-  private createUserUrl = 'http://dev.sparcteam.com/catering-project/RegisterUserController/add_users';
+  private authorizeUrl = 'http://dev.sparcteam.com/officeeatz.com/server/index.php/Users/login';
+  private createUserUrl = 'http://dev.sparcteam.com/officeeatz.com/server/index.php/Users/register';
 
   authorize(user: User) {
+    let headers = new HttpHeaders();
+    headers = headers.set('Client-Service', 'frontend-client').set('Auth-Key', 'cmsrestapi');
+    const formData = new FormData();
+    for ( var key in user ) {
+      formData.append(key, user[key]);
+    }
     return this.httpClient
-      .post(this.authorizeUrl, JSON.stringify(user))
+      .post(this.authorizeUrl, formData, {headers: headers})
       .map(res => {
         console.log(res);
       });
   }
 
   createUser(user: User) {
+    let headers = new HttpHeaders();
+    headers = headers.set('Client-Service', 'frontend-client').set('Auth-Key', 'cmsrestapi');
+    const formData = new FormData();
+    for ( var key in user ) {
+      formData.append(key, user[key]);
+    }
     return this.httpClient
       .post<CreateUserResponse>(
         this.createUserUrl,
-        JSON.stringify(user)
+        formData,
+        {
+          headers: headers
+        }
       )
       .map(res => {
+        console.log(res)
         return res;
       });
   }

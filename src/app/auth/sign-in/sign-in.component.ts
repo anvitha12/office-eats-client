@@ -18,7 +18,7 @@ export class SignInComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Sign In | OfficeEatz');
     this.formGroup = new FormGroup({
-      email_id: new FormControl('', [
+      email: new FormControl('', [
         Validators.required,
         Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)
       ]),
@@ -31,10 +31,10 @@ export class SignInComponent implements OnInit {
   }
 
   onSubmit() {
-    // this.userService
-    //   .authorize(this.formGroup.value)
-    //   .subscribe(() => {
-
-    //   });
+    this.userService
+      .authorize(this.formGroup.value)
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 }

@@ -1,13 +1,13 @@
 export class User {
-  user_role_type: string;
-  firstname: string;
-  lastname: string;
+  first_name: string;
+  last_name: string;
   gender: string;
-  email_id: string;
+  email: string;
   phone: string;
   password: string;
 }
 
 export class CreateUserResponse {
-  status: string;
+  status: number;
+  message: string;
 }

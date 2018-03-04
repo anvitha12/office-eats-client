@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 
 @NgModule({
   declarations: [
@@ -13,6 +13,7 @@ import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ToastModule.forRoot(),
     NgBootstrapFormValidationModule.forRoot()
   ],
   providers: [],

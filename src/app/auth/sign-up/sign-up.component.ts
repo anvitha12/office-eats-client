@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { UserService } from '../../shared/services/user.service';
 import { User } from '../../shared/models/user';
 
@@ -12,23 +14,25 @@ import { User } from '../../shared/models/user';
 export class SignUpComponent implements OnInit {
   user: User;
   formGroup: FormGroup;
-  constructor(private titleService: Title,
-    private userService: UserService) { }
+  constructor(
+    public toastr: ToastsManager,
+    private titleService: Title,
+    private userService: UserService,
+    private router: Router) { }
 
   ngOnInit() {
     this.titleService.setTitle('Sign Up | OfficeEatz');
     this.formGroup = new FormGroup({
-      user_role_type: new FormControl('manager'),
-      firstname: new FormControl('', [
+      first_name: new FormControl('', [
         Validators.required
       ]),
-      lastname: new FormControl('', [
+      last_name: new FormControl('', [
         Validators.required
       ]),
       gender: new FormControl('', [
         Validators.required
       ]),
-      email_id: new FormControl('', [
+      email: new FormControl('', [
         Validators.required,
         Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)
       ]),
@@ -46,13 +50,11 @@ export class SignUpComponent implements OnInit {
     this.userService
     .createUser(this.formGroup.value)
     .subscribe(data=>{
-      if(data.status == 'success'){
-        alert("Successfully registerd")
-        this.formGroup.reset();
-        this.formGroup.patchValue({
-          user_role_type: 'manager',
-          gender: ''
-        })
+      if(data.status == 201){
+        this.toastr.success('Successfully registerd.', 'Success!');
+        this.router.navigate(['/sign-in']);
+      }else if(data.status == 400){
+        this.toastr.error('Email already exists.', 'Error!');
       }
     });
   }
