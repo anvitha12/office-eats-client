@@ -16,7 +16,7 @@ export class SignInComponent implements OnInit {
     private userService: UserService) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Sign In | CMS');
+    this.titleService.setTitle('Sign In | OfficeEatz');
     this.formGroup = new FormGroup({
       email_id: new FormControl('', [
         Validators.required,

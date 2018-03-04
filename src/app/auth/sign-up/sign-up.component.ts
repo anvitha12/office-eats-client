@@ -16,7 +16,7 @@ export class SignUpComponent implements OnInit {
     private userService: UserService) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Sign Up | CMS');
+    this.titleService.setTitle('Sign Up | OfficeEatz');
     this.formGroup = new FormGroup({
       user_role_type: new FormControl('manager'),
       firstname: new FormControl('', [
