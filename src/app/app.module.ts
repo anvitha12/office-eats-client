@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
@@ -12,6 +13,7 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ToastModule.forRoot(),
     NgBootstrapFormValidationModule.forRoot()
