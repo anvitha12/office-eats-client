@@ -22,6 +22,15 @@
                 margin-top: 10px;
                 font-size: 1.4em;
             }
+            .sign-out {
+                a {
+                    color: #00b2d9;
+                    &:hover {
+                        color: #00b2d9;
+                        text-decoration: none;
+                    }
+                }                
+            }
         }
     }
     ul.main-menu {
