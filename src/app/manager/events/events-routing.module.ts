@@ -1,15 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { EventsComponent } from './events.component';
-import { CreateEventComponent } from './create-event/create-event.component';
 
 const routes: Routes = [
   {
     path: '', component: EventsComponent,
+    children: [
+      {
+        path: '', redirectTo: 'events', pathMatch: 'full'
+      },
+      {
+        path: '', loadChildren: './event-list/event-list.module#EventListModule'
+      },
+      {
+        path: 'new', loadChildren: './new-event/new-event.module#NewEventModule'
+      }
+    ]
   },
-  {
-    path: 'create', component: CreateEventComponent
-  }
 ];
 
 @NgModule({

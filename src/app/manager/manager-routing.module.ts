@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '', component: ManagerComponent,
     children: [
       {
-        path: '', redirectTo: '/manager', pathMatch: 'full'
+        path: '', redirectTo: 'manager', pathMatch: 'full'
       },
       {
         path: '', loadChildren: './dashboard/dashboard.module#DashboardModule'
