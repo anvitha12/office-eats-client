@@ -18,8 +18,8 @@ export class SignInComponent implements OnInit {
     private titleService: Title,
     public toastr: ToastsManager,
     private userService: UserService,
-    private router: Router) { 
-    }
+    private router: Router) {
+  }
 
   ngOnInit() {
     this.titleService.setTitle('Sign In | OfficeEatz');
@@ -37,11 +37,14 @@ export class SignInComponent implements OnInit {
   }
 
   onSubmit() {
-    this.router.navigate(['/manager']);
-  //   this.userService
-  //     .authorize(this.formGroup.value)
-  //     .subscribe((res) => {
-  //       console.log(res);
-  //     });
+    this.userService
+      .authorize(this.formGroup.value)
+      .subscribe((data) => {
+        if (data.status == 201) {
+          this.router.navigate(['/manager']);
+        } else if (data.status == 200) {
+          this.toastr.error('Invalid email or password.', 'Error!', { dismiss: 'controlled', showCloseButton: true });
+        }
+      });
   }
 }

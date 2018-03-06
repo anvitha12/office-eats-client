@@ -57,11 +57,11 @@ export class SignUpComponent implements OnInit {
     this.userService
       .createUser(this.formGroup.value)
       .subscribe(data => {
-        if (data.status == 200) {
+        if (data.status == 201) {
           this.toastr.success('Successfully registerd.', 'Success!', { dismiss: 'controlled', showCloseButton: true });
           this.router.navigate(['/auth/sign-in']);
-        } else if (data.status == 400) {
-          this.toastr.error('Email already exists.', 'Error!');
+        } else if (data.status == 200) {
+          this.toastr.error('Email already exists.', 'Error!', { dismiss: 'controlled', showCloseButton: true });
         }
       });
   }

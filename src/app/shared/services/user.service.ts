@@ -10,18 +10,37 @@ export class UserService {
   constructor(private httpClient: HttpClient) { }
   private authorizeUrl = 'http://dev.sparcteam.com/officeeatz.com/server/index.php/Users/login';
   private createUserUrl = 'http://dev.sparcteam.com/officeeatz.com/server/index.php/Users/register';
+  private signOutUrl = "http://dev.sparcteam.com/officeeatz.com/server/index.php/Users/logout";
 
   authorize(user: User) {
     let headers = new HttpHeaders();
     headers = headers.set('Client-Service', 'frontend-client').set('Auth-Key', 'cmsrestapi');
     const formData = new FormData();
-    for ( var key in user ) {
+    for (var key in user) {
       formData.append(key, user[key]);
     }
     return this.httpClient
-      .post(this.authorizeUrl, formData, {headers: headers})
+      .post<CreateUserResponse>(this.authorizeUrl, formData, { headers: headers })
       .map(res => {
         console.log(res);
+        return res;
+      });
+  }
+
+  signout() {
+    let headers = new HttpHeaders();
+    headers = headers.set('Client-Service', 'frontend-client').set('Auth-Key', 'cmsrestapi').set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    return this.httpClient
+      .post<CreateUserResponse>(
+        this.signOutUrl,
+        new FormData(),
+        {
+          headers: headers
+        }
+      )
+      .map(res => {
+        console.log(res)
+        return res;
       });
   }
 
@@ -29,7 +48,7 @@ export class UserService {
     let headers = new HttpHeaders();
     headers = headers.set('Client-Service', 'frontend-client').set('Auth-Key', 'cmsrestapi');
     const formData = new FormData();
-    for ( var key in user ) {
+    for (var key in user) {
       formData.append(key, user[key]);
     }
     return this.httpClient
