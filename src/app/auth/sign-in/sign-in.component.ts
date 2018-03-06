@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { UserService } from '../../shared/services/user.service';
 import { User } from '../../shared/models/user';
 
@@ -12,8 +14,12 @@ import { User } from '../../shared/models/user';
 export class SignInComponent implements OnInit {
   user: User;
   formGroup: FormGroup;
-  constructor(private titleService: Title,
-    private userService: UserService) { }
+  constructor(
+    private titleService: Title,
+    public toastr: ToastsManager,
+    private userService: UserService,
+    private router: Router) { 
+    }
 
   ngOnInit() {
     this.titleService.setTitle('Sign In | OfficeEatz');
@@ -31,10 +37,11 @@ export class SignInComponent implements OnInit {
   }
 
   onSubmit() {
-    this.userService
-      .authorize(this.formGroup.value)
-      .subscribe((res) => {
-        console.log(res);
-      });
+    this.router.navigate(['/manager']);
+  //   this.userService
+  //     .authorize(this.formGroup.value)
+  //     .subscribe((res) => {
+  //       console.log(res);
+  //     });
   }
 }

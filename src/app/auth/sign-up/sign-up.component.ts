@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
@@ -18,9 +18,7 @@ export class SignUpComponent implements OnInit {
     public toastr: ToastsManager,
     private titleService: Title,
     private userService: UserService,
-    private router: Router,
-    public vcr: ViewContainerRef) {
-    this.toastr.setRootViewContainerRef(vcr);
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -60,7 +58,7 @@ export class SignUpComponent implements OnInit {
       .createUser(this.formGroup.value)
       .subscribe(data => {
         if (data.status == 200) {
-          this.toastr.success('Successfully registerd.', 'Success!');
+          this.toastr.success('Successfully registerd.', 'Success!', { dismiss: 'controlled', showCloseButton: true });
           this.router.navigate(['/auth/sign-in']);
         } else if (data.status == 400) {
           this.toastr.error('Email already exists.', 'Error!');
