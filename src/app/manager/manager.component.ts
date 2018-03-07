@@ -18,7 +18,7 @@ export class ManagerComponent implements OnInit {
     this.userService
       .signout()
       .subscribe((data) => {
-        if (data.status == 200) {
+        if (data.status == 201) {
           this.router.navigate(['/auth/sign-in']);
         }
       });

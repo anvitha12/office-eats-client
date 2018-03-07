@@ -43,7 +43,7 @@ export class SignInComponent implements OnInit {
         if (data.status == 201) {
           this.router.navigate(['/manager']);
         } else if (data.status == 200) {
-          this.toastr.error('Invalid email or password.', 'Error!', { dismiss: 'controlled', showCloseButton: true });
+          this.toastr.error('Invalid email or password.', 'Error!', { dismiss: 'controlled', showCloseButton: true, toastLife: 4000 });
         }
       });
   }
