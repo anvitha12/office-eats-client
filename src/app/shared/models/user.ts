@@ -7,7 +7,14 @@ export class User {
   password: string;
 }
 
-export class CreateUserResponse {
+export class CommonResponse {
+  status: number;
+  message: string;
+}
+
+export class AuthorizeResposne {
+  token: string;
+  id: number;
   status: number;
   message: string;
 }

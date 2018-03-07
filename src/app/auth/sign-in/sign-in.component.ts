@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute  } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
@@ -13,16 +13,22 @@ import { User } from '../../shared/models/user';
 })
 export class SignInComponent implements OnInit {
   user: User;
+  returnUrl: string;
   formGroup: FormGroup;
+
   constructor(
     private titleService: Title,
     public toastr: ToastsManager,
     private userService: UserService,
-    private router: Router) {
+    private router: Router,
+    private activedRoute: ActivatedRoute,) {
   }
 
   ngOnInit() {
     this.titleService.setTitle('Sign In | OfficeEatz');
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.activedRoute.snapshot.queryParams['returnUrl'] || '/manager';
+
     this.formGroup = new FormGroup({
       email: new FormControl('', [
         Validators.required,
@@ -41,7 +47,7 @@ export class SignInComponent implements OnInit {
       .authorize(this.formGroup.value)
       .subscribe((data) => {
         if (data.status == 201) {
-          this.router.navigate(['/manager']);
+          this.router.navigate([this.returnUrl]);
         } else if (data.status == 200) {
           this.toastr.error('Invalid email or password.', 'Error!', { dismiss: 'controlled', showCloseButton: true, toastLife: 4000 });
         }

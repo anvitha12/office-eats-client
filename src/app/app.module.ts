@@ -6,6 +6,7 @@ import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
+import { AuthorizeGuard } from './shared/guards/authorize.guard';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,9 @@ import { AppComponent } from './app.component';
     ToastModule.forRoot(),
     NgBootstrapFormValidationModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    AuthorizeGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

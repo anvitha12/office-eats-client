@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthorizeGuard } from './shared/guards/authorize.guard';
 
 const routes: Routes = [
   {
@@ -11,7 +12,8 @@ const routes: Routes = [
   },
   {
     path: 'manager',
-    loadChildren: './manager/manager.module#ManagerModule'
+    loadChildren: './manager/manager.module#ManagerModule',
+    canActivate: [AuthorizeGuard],
   }
 ];
 
