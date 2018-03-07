@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,12 +9,13 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private titleService: Title, private router: Router) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Manager Dashboard | Office Eats');
   }
 
-  newEvent(){
+  newEvent() {
     this.router.navigate(['/manager/events/new']);
   }
 }

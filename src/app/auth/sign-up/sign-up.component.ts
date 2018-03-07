@@ -22,7 +22,7 @@ export class SignUpComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.titleService.setTitle('Sign Up | OfficeEatz');
+    this.titleService.setTitle('Sign Up | Office Eats');
     this.formGroup = new FormGroup({
       first_name: new FormControl('', [
         Validators.required,

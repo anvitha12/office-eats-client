@@ -25,7 +25,7 @@ export class SignInComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.titleService.setTitle('Sign In | OfficeEatz');
+    this.titleService.setTitle('Sign In | Office Eats');
     // get return url from route parameters or default to '/'
     this.returnUrl = this.activedRoute.snapshot.queryParams['returnUrl'] || '/manager';
 

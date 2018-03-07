@@ -17,7 +17,7 @@ export class ForgotPasswordComponent implements OnInit {
     private userService: UserService) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Forgot Password | OfficeEatz');
+    this.titleService.setTitle('Forgot Password | Office Eats');
     this.formGroup = new FormGroup({
       email: new FormControl('', [
         Validators.required,
