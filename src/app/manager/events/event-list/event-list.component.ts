@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -8,10 +9,13 @@ import { Title } from '@angular/platform-browser';
 })
 export class EventListComponent implements OnInit {
 
-  constructor(private titleService: Title) { }
+  constructor(private titleService: Title,  private router: Router) { }
 
   ngOnInit() {
     this.titleService.setTitle('Events | Office Eats');
   }
 
+  newEvent() {
+    this.router.navigate(['/manager/events/new']);
+  }
 }

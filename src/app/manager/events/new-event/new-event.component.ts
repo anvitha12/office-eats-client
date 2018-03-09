@@ -14,4 +14,7 @@ export class NewEventComponent implements OnInit {
     this.titleService.setTitle('New Event | Office Eats');
   }
 
+  goBack(){
+    history.back();
+  }
 }
