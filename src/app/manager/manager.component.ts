@@ -10,12 +10,25 @@ import { ManagerService } from './manager.service';
 })
 export class ManagerComponent implements OnInit {
 
-  constructor(private userService: UserService, private managerService: ManagerService, private router: Router) { }
+  isSidebarOpen: boolean;
+
+  constructor(private userService: UserService,
+    private managerService: ManagerService,
+    private router: Router) {
+    router.events.subscribe((val) => {
+      this.isSidebarOpen = false;
+    });
+  }
 
   ngOnInit() {
+    this.isSidebarOpen = false;
     this.managerService.getManagerDetails().subscribe((data) => {
       console.log(data);
     });
+  }
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
   }
 
   signOut() {

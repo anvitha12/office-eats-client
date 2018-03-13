@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper" [ngClass]="isSidebarOpen ? 'active' : ''">
 
   <!-- Sidebar -->
   <nav class="sidebar">
@@ -19,22 +19,25 @@
 
     <!-- Sidebar Links -->
     <ul class="list-unstyled main-menu">
-      <li  routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <a routerLink='/manager'>Dashboard</a>
       </li>
-      <li  routerLinkActive="active">
+      <li routerLinkActive="active">
         <a routerLink='/manager/events'>Events</a>
       </li>
       <li>
-          <a href="#">Attendees</a>
-        </li>
+        <a href="#">Attendees</a>
+      </li>
     </ul>
   </nav>
 
   <!-- Page Content -->
   <div class="content">
     <div class="container-fluid">
-        <router-outlet></router-outlet>
+      <button class="btn btn-info btn-lg hidden-md hidden-sm hidden-lg mb-20" (click)='toggleSidebar()'>
+        <span class="glyphicon glyphicon-menu-hamburger"></span> Menu
+      </button>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

@@ -9,6 +9,7 @@
     background: #00468A;
     color: #fff;
     transition: all 0.3s;
+    z-index: 1;
     .sidebar-header {
         padding: 20px;
         background: #00468A;
@@ -57,4 +58,20 @@
 .content {
    margin-left: 200px;
    padding: 20px;
+   transition: all 0.3s;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        margin-left: -200px;
+    }
+    .active .sidebar {
+        margin-left: 0;
+    }
+    .content {
+        margin-left: 0;
+    }
+    .active .content {
+        margin-left: 200px;
+    }
 }
