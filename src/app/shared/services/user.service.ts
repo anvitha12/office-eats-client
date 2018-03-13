@@ -8,21 +8,23 @@ import { User, CommonResponse, AuthorizeResposne } from '../models/user';
 export class UserService {
   public token: string;
   constructor(private httpClient: HttpClient) {
-    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.token = currentUser && currentUser.token;
   }
 
   private authorizeUrl = 'http://dev.sparcteam.com/officeeatz.com/server/index.php/Users/login';
   private createUserUrl = 'http://dev.sparcteam.com/officeeatz.com/server/index.php/Users/register';
-  private signOutUrl = "http://dev.sparcteam.com/officeeatz.com/server/index.php/Users/logout";
+  private signOutUrl = 'http://dev.sparcteam.com/officeeatz.com/server/index.php/Users/logout';
 
   authorize(user: User) {
     let headers = new HttpHeaders();
     headers = headers.set('Client-Service', 'frontend-client').set('Auth-Key', 'cmsrestapi');
     const formData = new FormData();
-    for (var key in user) {
-      formData.append(key, user[key]);
-    }
+      for (const key in user) {
+        if (user[key]) {
+          formData.append(key, user[key]);
+        }
+      }
     return this.httpClient
       .post<AuthorizeResposne>(this.authorizeUrl, formData, { headers: headers })
       .map(res => {
@@ -35,7 +37,9 @@ export class UserService {
 
   signout() {
     let headers = new HttpHeaders();
-    headers = headers.set('Client-Service', 'frontend-client').set('Auth-Key', 'cmsrestapi').set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    headers = headers.set('Client-Service', 'frontend-client')
+    .set('Auth-Key', 'cmsrestapi')
+    .set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
     return this.httpClient
       .post<CommonResponse>(
         this.signOutUrl,
@@ -55,8 +59,10 @@ export class UserService {
     let headers = new HttpHeaders();
     headers = headers.set('Client-Service', 'frontend-client').set('Auth-Key', 'cmsrestapi');
     const formData = new FormData();
-    for (var key in user) {
-      formData.append(key, user[key]);
+    for (const key in user) {
+      if (user[key]) {
+        formData.append(key, user[key]);
+      }
     }
     return this.httpClient
       .post<CommonResponse>(

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../shared/services/user.service';
+import { ManagerService } from './manager.service';
 
 @Component({
   selector: 'app-manager',
@@ -9,16 +10,19 @@ import { UserService } from '../shared/services/user.service';
 })
 export class ManagerComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private managerService: ManagerService, private router: Router) { }
 
   ngOnInit() {
+    this.managerService.getManagerDetails().subscribe((data) => {
+      console.log(data);
+    });
   }
 
   signOut() {
     this.userService
       .signout()
       .subscribe((data) => {
-        if (data.status == 201) {
+        if (data.status === 201) {
           this.router.navigate(['/auth/sign-in']);
         }
       });

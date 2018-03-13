@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ManagerRoutingModule } from './manager-routing.module';
 import { ManagerComponent } from './manager.component';
 import { UserService } from '../shared/services/user.service';
+import { ManagerService } from './manager.service';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import { UserService } from '../shared/services/user.service';
     ManagerRoutingModule
   ],
   declarations: [ManagerComponent],
-  providers: [UserService]
+  providers: [UserService, ManagerService]
 })
 export class ManagerModule { }
