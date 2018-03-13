@@ -36,8 +36,8 @@ export class SignInComponent implements OnInit {
       ]),
       password: new FormControl('', [
         Validators.required,
-        Validators.minLength(8),
-        Validators.maxLength(20)
+        Validators.minLength(6),
+        Validators.maxLength(30)
       ])
     });
   }
@@ -46,9 +46,9 @@ export class SignInComponent implements OnInit {
     this.userService
       .authorize(this.formGroup.value)
       .subscribe((data) => {
-        if (data.status == 201) {
+        if (data.status === 201) {
           this.router.navigate([this.returnUrl]);
-        } else if (data.status == 200) {
+        } else if (data.status === 200) {
           this.toastr.error('Invalid email or password.', 'Error!', { dismiss: 'controlled', showCloseButton: true, toastLife: 4000 });
         }
       });
