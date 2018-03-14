@@ -19,7 +19,8 @@ export class ManagerService {
     headers = headers
     .set('Client-Service', 'frontend-client')
     .set('Auth-Key', 'cmsrestapi')
-    .set('value', this.token)
+    .set('Authorization', this.token)
+    .set('User-ID', this.id)
     .set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
     return this.httpClient
