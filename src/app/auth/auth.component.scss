@@ -1,16 +1,16 @@
-.header {
-    background-color: #00468A;
-    margin-bottom: 20px;
-    .header-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .logo>img{
-            height: 80px;
-        }
-        .email {
-            color: #fff;
-            font-size: 16px;
-        }
+.auth-wrapper {
+    height: 100%;
+    background-color: #0D83DD;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    .auth-form {
+      background-color: #fff;
+      border: 2px solid #cdd4d9;
+      border-radius: 5px;
+      box-shadow: 4px 4px rgba(6,41,66,.1);
+      flex-basis: 500px;
+      margin: auto 20px;
+      padding: 48px 40px;
     }
 }

@@ -1,18 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400');
+html, body {
+  height: 100%;
+}
+body {
+  font-family: 'Montserrat', sans-serif;
+}
 hr {
     border-color: #ccc;
 }
 .mt-0{
     margin-top: 0;
-} 
+}
 .mb-0 {
     margin-bottom: 0;
 }
 .mb-20 {
     margin-bottom: 20px;
 }
-.auth-form {
-    border: 1px solid #ccc;;
-    border-radius: 5px;
-    padding: 20px;
-}
+
