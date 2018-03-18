@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
+import { Manager } from '../manager/models/manager';
 
 @Injectable()
 export class ManagerService {
@@ -14,24 +16,23 @@ export class ManagerService {
 
   private getManagerDetailsUrl = 'http://dev.sparcteam.com/officeeatz.com/server/index.php/Users/detail/';
 
-  getManagerDetails () {
+  getCurrentManagerDetails(){
     let headers = new HttpHeaders();
     headers = headers
-    .set('Client-Service', 'frontend-client')
-    .set('Auth-Key', 'cmsrestapi')
-    .set('Authorization', this.token)
-    .set('User-ID', this.id)
-    .set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+      .set('Client-Service', 'frontend-client')
+      .set('Auth-Key', 'cmsrestapi')
+      .set('Authorization', this.token)
+      .set('User-ID', this.id)
+      .set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
     return this.httpClient
-      .get(
+      .get <Manager>(
         this.getManagerDetailsUrl + this.id,
         {
           headers: headers
-        }
+        },
       )
       .map(res => {
-        console.log(res);
         return res;
       });
   }
