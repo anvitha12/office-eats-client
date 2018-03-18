@@ -4,11 +4,17 @@ import { CommonModule } from '@angular/common';
 import { NewEventRoutingModule } from './new-event-routing.module';
 import { NewEventComponent } from './new-event.component';
 
+import { SharedModule } from '../../../shared/shared.module';
+
+import { EventsService } from '../events.service';
+
 @NgModule({
   imports: [
     CommonModule,
-    NewEventRoutingModule
+    NewEventRoutingModule,
+    SharedModule
   ],
-  declarations: [NewEventComponent]
+  declarations: [NewEventComponent],
+  providers: [EventsService]
 })
 export class NewEventModule { }
