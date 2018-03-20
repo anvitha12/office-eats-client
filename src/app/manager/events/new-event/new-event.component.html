@@ -55,9 +55,9 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label class="col-md-6 control-label" for="budget_details">Budget</label>
+            <label class="col-md-6 control-label" for="budget">Budget</label>
             <div class="col-md-6">
-              <input id="budget_details" name="budget_details" type="text" placeholder="Budget" class="form-control" formControlName='budget_details'>
+              <input id="budget" name="budget" type="text" placeholder="Budget" class="form-control" formControlName='budget'>
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@
           <div class="form-group pt-7">
             <label class="col-md-3 text-right" for="splitEven">Split Even</label>
             <div class="col-md-6">
-              <p-checkbox name="splitEven" formControlName='splitEven'></p-checkbox>
+              <p-checkbox name="splitEven" formControlName='splitEven' binary="true"></p-checkbox>
             </div>
           </div>
         </div>
@@ -76,7 +76,7 @@
           <div class="form-group">
             <label class="col-md-6 text-right" for="individualOrder">Individual Order</label>
             <div class="col-md-6">
-              <p-radioButton name="orderType" formControlName="individualOrder"></p-radioButton>
+              <p-radioButton name="orderType" formControlName="individualOrder" [value]="true" (click)="onOrderTypeChange('isIndividualOrder')"></p-radioButton>
             </div>
           </div>
         </div>
@@ -84,7 +84,7 @@
           <div class="form-group">
             <label class="col-md-3 text-right" for="catering">Catering</label>
             <div class="col-md-6">
-              <p-radioButton name="orderType" formControlName="catering"></p-radioButton>
+              <p-radioButton name="orderType" formControlName="catering" [value]="true" (click)="onOrderTypeChange('isCatering')"></p-radioButton>
             </div>
           </div>
         </div>
@@ -93,8 +93,9 @@
       <div class="form-group">
         <label class="col-md-3 control-label" for="attendees">Attendees</label>
         <div class="col-md-5">
-          <textarea rows="5" class="form-control"></textarea>
-          <small>Ex: sample@company.com; sample1@company.com</small><br/>
+          <textarea rows="5" class="form-control" formControlName='attendeesList'></textarea>
+          <small>Ex: sample@company.com; sample1@company.com</small>
+          <br/>
           <button class="btn btn-default pull-right" type="button" (click)="addAttendee()">Add Attendees</button>
           <div class="clearfix"></div>
         </div>
@@ -114,25 +115,47 @@
               <th>Delete</th>
             </tr>
           </thead>
-          <tbody>
-            <tr formArrayName="attendees" *ngFor="let attendee of formGroup.get('attendees').controls; let i = index;">
-              <td><i class="fa fa-2x fa-check-circle text-success" aria-hidden="true"></i></td>
-              <td><input type="email" class="form-control" placeholder="Email"></td>
-              <td><input type="text" class="form-control" placeholder="Name"></td>
-              <td><input type="text" class="form-control" placeholder="Food Preference"></td>
-              <td><input type="text" class="form-control" placeholder="Budget"></td>
-              <td><button class="btn btn-primary" type="button">Remind</button></td>
-              <td><button class="btn btn-primary" type="button">Order</button></td>
-              <td><button class="btn btn-danger" type="button">Delete</button></td>
+          <tbody formArrayName="attendees">
+            <tr *ngFor="let attendee of formGroup.controls.attendees.controls; let i = index;" [formGroupName]="i">
+              <td>
+                <i class="fa fa-2x fa-check-circle text-success" aria-hidden="true"></i>
+              </td>
+              <td>
+                <input type="email" class="form-control" placeholder="Email" formControlName='email'>
+              </td>
+              <td>
+                <input type="text" class="form-control" placeholder="Name" formControlName='name'>
+              </td>
+              <td>
+                <input type="text" class="form-control" placeholder="Food Preference" formControlName='foodPreference'>
+              </td>
+              <td>
+                <input type="text" class="form-control" placeholder="Budget" formControlName='budget'>
+              </td>
+              <td>
+                <button class="btn btn-primary" type="button">Remind</button>
+              </td>
+              <td>
+                <button class="btn btn-primary" type="button">Order</button>
+              </td>
+              <td>
+                <button class="btn btn-danger" type="button" (click)="removeAttendee(index)">Delete</button>
+              </td>
+            </tr>
+            <tr *ngIf="!formGroup.value.attendees.length">
+              <td colspan="8">No attendees to show.</td>
             </tr>
           </tbody>
         </table>
       </div>
-
-      <div class="form-group">
-        <label class="col-md-3 control-label" for="restaurant">Restaurant</label>
-        <div class="col-md-9">
-          <input id="restaurant" name="restaurant" type="text" placeholder="Restaurant" class="form-control" formControlName='restaurant'>
+      <div class="row">
+        <div class="col-md-12 mb-20">
+          <p-carousel headerText="Restaurants" [value]="restaurants">
+            <ng-template let-restaurant pTemplate="item">
+                <img [src]="restaurant.thumbnail" width="60">
+                {{restaurant.name}}
+            </ng-template>
+          </p-carousel>
         </div>
       </div>
       <!-- Form actions -->
@@ -144,3 +167,5 @@
     </form>
   </div>
 </div>
+
+{{formGroup.value | json}}

@@ -10,12 +10,45 @@ import { EventsService } from '../events.service';
 })
 export class NewEventComponent implements OnInit {
 
-  formGroup: FormGroup;
-  attendees: FormArray;
+  formGroup: FormGroup; 
+  restaurants: any[];
 
   constructor(private titleService: Title, private eventsService: EventsService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.restaurants = [
+      {
+        restaurantId: 1,
+        name: 'Gringos Mexican Kitchen',
+        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',        
+      },
+      {
+        restaurantId: 2,
+        name: 'Clear Springs Restaurant',
+        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',        
+      },
+      {
+        restaurantId: 1,
+        name: 'Gringos Mexican Kitchen',
+        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',        
+      },
+      {
+        restaurantId: 2,
+        name: 'Clear Springs Restaurant',
+        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',        
+      },
+      {
+        restaurantId: 1,
+        name: 'Gringos Mexican Kitchen',
+        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',        
+      },
+      {
+        restaurantId: 2,
+        name: 'Clear Springs Restaurant',
+        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',        
+      }
+    ]
+
     this.titleService.setTitle('New Event | Office Eats');
 
     this.formGroup = new FormGroup({
@@ -31,13 +64,14 @@ export class NewEventComponent implements OnInit {
       venue: new FormControl('', [
         Validators.required
       ]),
-      budget_details: new FormControl('', [
+      budget: new FormControl('', [
         Validators.required
       ]),
-      splitEven: new FormControl(''),
-      catering: new FormControl(''),
-      individualOrder: new FormControl(''),
-      attendees: this.formBuilder.array([]),
+      splitEven: new FormControl(false),
+      catering: new FormControl(false),
+      individualOrder: new FormControl(false),
+      attendeesList: new FormControl(''),
+      attendees: new FormArray([]),
       restaurant: new FormControl('', [
         Validators.required
       ])
@@ -48,17 +82,52 @@ export class NewEventComponent implements OnInit {
     history.back();
   }
 
-  createItem(): FormGroup {
+  createAttende(email): FormGroup {
     return this.formBuilder.group({
-      name: '',
-      email: '',
-      budget: ''
+      email: [email, Validators.required],
+      name: ['', Validators.required],
+      budget: ['', Validators.required],
+      foodPreference: ['', Validators.required]
     });
   }
 
   addAttendee() {
-    this.attendees = this.formGroup.get('attendees') as FormArray;
-    this.attendees.push(this.createItem());
+    if (this.formGroup.value.attendeesList) {
+      const attendees = this.formGroup.value.attendeesList.split(';');
+      if (attendees && attendees.length) {
+        for (let i = 0; i < attendees.length; i++) {
+          const email = attendees[i];
+          if (this.formGroup.value.attendees.length) {
+            const isEmailExists = this.formGroup.get('attendees').value.some(attende => {
+              return attende.email === email;
+            });
+            if(!isEmailExists){
+              (<FormArray>this.formGroup.get('attendees')).push(this.createAttende(email))  
+            }
+          }else {
+            (<FormArray>this.formGroup.get('attendees')).push(this.createAttende(email))
+          }
+        }
+      }
+    }
+  }
+
+  removeAttendee (index: number){
+    const control = <FormArray>this.formGroup.controls['attendees'];
+    // remove the chosen row
+    control.removeAt(index);
+  }
+
+  onOrderTypeChange(orderType: string){
+    if(orderType === 'isIndividualOrder'){
+      this.formGroup.patchValue({
+        catering: false
+      })
+    }else if (orderType === 'isCatering'){
+      this.formGroup.patchValue({
+        individualOrder: false
+      })
+    }
   }
 
   onSubmit() {
