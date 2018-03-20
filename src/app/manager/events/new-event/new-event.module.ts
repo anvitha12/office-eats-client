@@ -1,18 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { NewEventRoutingModule } from './new-event-routing.module';
 import { NewEventComponent } from './new-event.component';
 
-import { SharedModule } from '../../../shared/shared.module';
-
 import { EventsService } from '../events.service';
+
+import { CheckboxModule } from 'primeng/checkbox';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @NgModule({
   imports: [
     CommonModule,
     NewEventRoutingModule,
-    SharedModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    CheckboxModule,
+    RadioButtonModule
   ],
   declarations: [NewEventComponent],
   providers: [EventsService]

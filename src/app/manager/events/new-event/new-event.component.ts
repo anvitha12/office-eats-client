@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { EventsService } from '../events.service';
 
 @Component({
@@ -9,14 +9,17 @@ import { EventsService } from '../events.service';
   styleUrls: ['./new-event.component.scss']
 })
 export class NewEventComponent implements OnInit {
+
   formGroup: FormGroup;
-  constructor(private titleService: Title, private eventsService: EventsService) { }
+  attendees: FormArray;
+
+  constructor(private titleService: Title, private eventsService: EventsService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.titleService.setTitle('New Event | Office Eats');
 
     this.formGroup = new FormGroup({
-      meeting_title: new FormControl('', [
+      meetingTitle: new FormControl('', [
         Validators.required,
       ]),
       date: new FormControl('', [
@@ -31,11 +34,10 @@ export class NewEventComponent implements OnInit {
       budget_details: new FormControl('', [
         Validators.required
       ]),
-      splitevents: new FormControl('', [
-        Validators.required
-      ]),
+      splitEven: new FormControl(''),
       catering: new FormControl(''),
-      individualorder: new FormControl(''),
+      individualOrder: new FormControl(''),
+      attendees: this.formBuilder.array([]),
       restaurant: new FormControl('', [
         Validators.required
       ])
@@ -44,6 +46,19 @@ export class NewEventComponent implements OnInit {
 
   goBack() {
     history.back();
+  }
+
+  createItem(): FormGroup {
+    return this.formBuilder.group({
+      name: '',
+      email: '',
+      budget: ''
+    });
+  }
+
+  addAttendee() {
+    this.attendees = this.formGroup.get('attendees') as FormArray;
+    this.attendees.push(this.createItem());
   }
 
   onSubmit() {
