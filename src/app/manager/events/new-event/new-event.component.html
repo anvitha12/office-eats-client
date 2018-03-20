@@ -116,7 +116,7 @@
             </tr>
           </thead>
           <tbody formArrayName="attendees">
-            <tr *ngFor="let attendee of formGroup.controls.attendees.controls; let i = index;" [formGroupName]="i">
+            <tr *ngFor="let attendee of formGroup.get('attendees')['controls']; let i = index;" [formGroupName]="i">
               <td>
                 <i class="fa fa-2x fa-check-circle text-success" aria-hidden="true"></i>
               </td>
