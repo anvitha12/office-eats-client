@@ -11,6 +11,7 @@ import { EventsService } from '../events.service';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CarouselModule } from 'primeng/carousel';
+import {CalendarModule} from 'primeng/calendar';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { CarouselModule } from 'primeng/carousel';
     HttpClientModule,
     CheckboxModule,
     RadioButtonModule,
-    CarouselModule
+    CarouselModule,
+    CalendarModule
   ],
   declarations: [NewEventComponent],
   providers: [EventsService]

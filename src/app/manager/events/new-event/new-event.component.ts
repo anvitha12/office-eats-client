@@ -10,42 +10,44 @@ import { EventsService } from '../events.service';
 })
 export class NewEventComponent implements OnInit {
 
-  formGroup: FormGroup; 
+  formGroup: FormGroup;
   restaurants: any[];
+  minDateValue: Date;
 
   constructor(private titleService: Title, private eventsService: EventsService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.minDateValue = new Date();
     this.restaurants = [
       {
         restaurantId: 1,
         name: 'Gringos Mexican Kitchen',
-        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',        
+        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',
       },
       {
         restaurantId: 2,
         name: 'Clear Springs Restaurant',
-        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',        
+        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',
       },
       {
         restaurantId: 1,
         name: 'Gringos Mexican Kitchen',
-        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',        
+        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',
       },
       {
         restaurantId: 2,
         name: 'Clear Springs Restaurant',
-        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',        
+        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',
       },
       {
         restaurantId: 1,
         name: 'Gringos Mexican Kitchen',
-        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',        
+        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',
       },
       {
         restaurantId: 2,
         name: 'Clear Springs Restaurant',
-        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',        
+        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',
       }
     ]
 
@@ -64,7 +66,7 @@ export class NewEventComponent implements OnInit {
       venue: new FormControl('', [
         Validators.required
       ]),
-      budget: new FormControl('', [
+      budget: new FormControl({value: '', disabled: true}, [
         Validators.required
       ]),
       splitEven: new FormControl(false),
@@ -101,11 +103,11 @@ export class NewEventComponent implements OnInit {
             const isEmailExists = this.formGroup.get('attendees').value.some(attende => {
               return attende.email === email;
             });
-            if(!isEmailExists){
-              (<FormArray>this.formGroup.get('attendees')).push(this.createAttende(email))  
+            if (!isEmailExists) {
+              (<FormArray>this.formGroup.get('attendees')).push(this.createAttende(email));
             }
-          }else {
-            (<FormArray>this.formGroup.get('attendees')).push(this.createAttende(email))
+          } else {
+            (<FormArray>this.formGroup.get('attendees')).push(this.createAttende(email));
           }
         }
       }
@@ -118,16 +120,21 @@ export class NewEventComponent implements OnInit {
     control.removeAt(index);
   }
 
-  onOrderTypeChange(orderType: string){
-    if(orderType === 'isIndividualOrder'){
+  onOrderTypeChange(orderType: string) {
+    if (orderType === 'isIndividualOrder') {
       this.formGroup.patchValue({
         catering: false
-      })
-    }else if (orderType === 'isCatering'){
+      });
+    } else if (orderType === 'isCatering') {
       this.formGroup.patchValue({
         individualOrder: false
-      })
+      });
     }
+  }
+
+  onSplitEvenChange() {
+    const ctrl = this.formGroup.get('budget');
+    this.formGroup.value.splitEven ? ctrl.enable() : ctrl.disable();
   }
 
   onSubmit() {

@@ -31,7 +31,7 @@
           <div class="form-group">
             <label class="col-md-6 control-label" for="date">Date</label>
             <div class="col-md-6">
-              <input id="date" name="date" type="date" placeholder="Date" class="form-control" formControlName='date'>
+              <p-calendar formControlName="date" placeholder="Date" [minDate]="minDateValue" styleClass="w-100-p" inputStyleClass="w-100-p" [readonlyInput]="true"></p-calendar>
             </div>
           </div>
         </div>
@@ -39,7 +39,7 @@
           <div class="form-group">
             <label class="col-md-3 control-label" for="time">Time</label>
             <div class="col-md-6">
-              <input id="time" name="time" type="time" placeholder="time" class="form-control" formControlName='time'>
+                <p-calendar formControlName="time" placeholder="Time" [timeOnly]="true" hourFormat="12" styleClass="w-100-p" inputStyleClass="w-100-p" [readonlyInput]="true"></p-calendar>
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@
           <div class="form-group pt-7">
             <label class="col-md-3 text-right" for="splitEven">Split Even</label>
             <div class="col-md-6">
-              <p-checkbox name="splitEven" formControlName='splitEven' binary="true"></p-checkbox>
+              <p-checkbox name="splitEven" formControlName='splitEven' binary="true" (click)="onSplitEvenChange()"></p-checkbox>
             </div>
           </div>
         </div>
