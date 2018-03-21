@@ -31,7 +31,8 @@
           <div class="form-group">
             <label class="col-md-6 control-label" for="date">Date</label>
             <div class="col-md-6">
-              <p-calendar formControlName="date" placeholder="Date" [minDate]="minDateValue" styleClass="w-100-p" inputStyleClass="w-100-p" [readonlyInput]="true"></p-calendar>
+              <p-calendar formControlName="date" placeholder="Date" [minDate]="minDateValue" styleClass="w-100-p" inputStyleClass="w-100-p"
+                [readonlyInput]="true"></p-calendar>
             </div>
           </div>
         </div>
@@ -39,7 +40,8 @@
           <div class="form-group">
             <label class="col-md-3 control-label" for="time">Time</label>
             <div class="col-md-6">
-                <p-calendar formControlName="time" placeholder="Time" [timeOnly]="true" hourFormat="12" styleClass="w-100-p" inputStyleClass="w-100-p" [readonlyInput]="true"></p-calendar>
+              <p-calendar formControlName="time" placeholder="Time" [timeOnly]="true" hourFormat="12" styleClass="w-100-p" inputStyleClass="w-100-p"
+                [readonlyInput]="true"></p-calendar>
             </div>
           </div>
         </div>
@@ -152,8 +154,14 @@
         <div class="col-md-12 mb-20">
           <p-carousel headerText="Restaurants" [value]="restaurants">
             <ng-template let-restaurant pTemplate="item">
-                <img [src]="restaurant.thumbnail" width="60">
-                {{restaurant.name}}
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="resturant">
+                      <img [src]="restaurant.thumbnail" class="img-responsive"> 
+                      <p>{{restaurant.name}}</p>
+                  </div>                  
+                </div>
+              </div>
             </ng-template>
           </p-carousel>
         </div>

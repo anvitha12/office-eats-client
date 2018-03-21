@@ -49,7 +49,7 @@ export class NewEventComponent implements OnInit {
         name: 'Clear Springs Restaurant',
         thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',
       }
-    ]
+    ];
 
     this.titleService.setTitle('New Event | Office Eats');
 
@@ -98,23 +98,25 @@ export class NewEventComponent implements OnInit {
       const attendees = this.formGroup.value.attendeesList.split(';');
       if (attendees && attendees.length) {
         for (let i = 0; i < attendees.length; i++) {
-          const email = attendees[i];
-          if (this.formGroup.value.attendees.length) {
-            const isEmailExists = this.formGroup.get('attendees').value.some(attende => {
-              return attende.email === email;
-            });
-            if (!isEmailExists) {
+          const email = attendees[i].trim();
+          if (email && email.length) {
+            if (this.formGroup.value.attendees.length) {
+              const isEmailExists = this.formGroup.get('attendees').value.some(attende => {
+                return attende.email === email;
+              });
+              if (!isEmailExists) {
+                (<FormArray>this.formGroup.get('attendees')).push(this.createAttende(email));
+              }
+            } else {
               (<FormArray>this.formGroup.get('attendees')).push(this.createAttende(email));
             }
-          } else {
-            (<FormArray>this.formGroup.get('attendees')).push(this.createAttende(email));
           }
         }
       }
     }
   }
 
-  removeAttendee (index: number){
+  removeAttendee (index: number) {
     const control = <FormArray>this.formGroup.controls['attendees'];
     // remove the chosen row
     control.removeAt(index);
