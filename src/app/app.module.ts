@@ -8,6 +8,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthorizeGuard } from './shared/guards/authorize.guard';
 
+import { baseURL } from './shared/constants/base-url';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -20,7 +22,8 @@ import { AuthorizeGuard } from './shared/guards/authorize.guard';
     NgBootstrapFormValidationModule.forRoot()
   ],
   providers: [
-    AuthorizeGuard
+    AuthorizeGuard,
+    { provide: 'BaseURL', useValue: baseURL }
   ],
   bootstrap: [AppComponent]
 })

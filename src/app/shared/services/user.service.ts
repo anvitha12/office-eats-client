@@ -3,6 +3,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
 import { User, CommonResponse, AuthorizeResposne } from '../models/user';
+import { baseURL } from '../constants/base-url';
 
 @Injectable()
 export class UserService {
@@ -12,9 +13,9 @@ export class UserService {
     this.token = currentUser && currentUser.token;
   }
 
-  private authorizeUrl = 'http://dev.sparcteam.com/officeeatz.com/server/index.php/Users/login';
-  private createUserUrl = 'http://dev.sparcteam.com/officeeatz.com/server/index.php/Users/register';
-  private signOutUrl = 'http://dev.sparcteam.com/officeeatz.com/server/index.php/Users/logout';
+  private authorizeUrl = baseURL + 'Users/login';
+  private createUserUrl = baseURL + 'Users/register';
+  private signOutUrl = baseURL + 'Users/logout';
 
   authorize(user: User) {
     let headers = new HttpHeaders();

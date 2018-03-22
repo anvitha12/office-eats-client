@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { Manager } from '../manager/models/manager';
+import { baseURL } from '../shared/constants/base-url';
 
 @Injectable()
 export class ManagerService {
@@ -17,7 +18,7 @@ export class ManagerService {
     this.id = currentUser.id;
   }
 
-  private getManagerDetailsUrl = 'http://dev.sparcteam.com/officeeatz.com/server/index.php/Users/detail/';
+  private getManagerDetailsUrl = baseURL + 'Users/detail/';
 
   getCurrentManagerDetails() {
     let headers = new HttpHeaders();
