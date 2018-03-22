@@ -1,9 +1,9 @@
-import { CommonResponse } from '../../shared/models/user'
+import { CommonResponse } from '../../shared/models/user';
 
 export class Manager {
     status: number;
     message: string;
-    user_details: ManagerDetails;   
+    user_details: ManagerDetails;
 }
 
 export class ManagerDetails {
