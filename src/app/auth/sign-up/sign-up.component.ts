@@ -15,7 +15,7 @@ import { Corporate } from '../../shared/models/corporate';
 })
 export class SignUpComponent implements OnInit {
   user: User;
-  corporates = [];
+  corporates: Corporate[];
   formGroup: FormGroup;
   constructor(
     public toastr: ToastsManager,
@@ -62,12 +62,7 @@ export class SignUpComponent implements OnInit {
 
     this.corporateService.getCorporates().subscribe(data => {
       if (data.status === 200) {
-        for (let i = 0 ; i < data.corporate_info_details.length; i++) {
-          this.corporates.push({
-            label: data.corporate_info_details[i].corporate_name,
-            value: data.corporate_info_details[i].corporate_id
-          });
-        }
+        this.corporates = data.corporate_info_details;
       }
     });
   }

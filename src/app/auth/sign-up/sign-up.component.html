@@ -24,8 +24,11 @@
         <input type="text" class="form-control" name="email" id="email" formControlName="email">
       </div>
       <div class="form-group">
-        <label for="corporate_id" class="control-label">Corporate</label>
-        <p-dropdown [options]="corporates" formControlName="corporate_id" name="corporate_id" id="corporate_id"></p-dropdown>
+        <label for="corporate_id" class="control-label">Company</label>
+        <select class="form-control" name="corporate_id" id="corporate_id" formControlName="corporate_id">
+          <option value="">Select Company</option>
+          <option *ngFor="let corporate of corporates" [ngValue]="corporate.corporate_id"> {{corporate.corporate_name}} </option>
+        </select>
       </div>
       <div class="form-group">
           <label for="phone" class="control-label">Phone</label>
