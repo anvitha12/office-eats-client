@@ -24,6 +24,10 @@
         <input type="text" class="form-control" name="email" id="email" formControlName="email">
       </div>
       <div class="form-group">
+        <label for="corporate_id" class="control-label">Corporate</label>
+        <p-dropdown [options]="corporates" formControlName="corporate_id" name="corporate_id" id="corporate_id"></p-dropdown>
+      </div>
+      <div class="form-group">
           <label for="phone" class="control-label">Phone</label>
           <input type="text" class="form-control" name="phone" id="phone" formControlName="phone">
         </div>

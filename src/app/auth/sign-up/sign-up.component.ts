@@ -5,6 +5,8 @@ import { Title } from '@angular/platform-browser';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { UserService } from '../../shared/services/user.service';
 import { User } from '../../shared/models/user';
+import { CorporateService } from '../../shared/services/corporate.service';
+import { Corporate } from '../../shared/models/corporate';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,11 +15,13 @@ import { User } from '../../shared/models/user';
 })
 export class SignUpComponent implements OnInit {
   user: User;
+  corporates = [];
   formGroup: FormGroup;
   constructor(
     public toastr: ToastsManager,
     private titleService: Title,
     private userService: UserService,
+    private corporateService: CorporateService,
     private router: Router) {
   }
 
@@ -41,6 +45,9 @@ export class SignUpComponent implements OnInit {
         Validators.required,
         Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)
       ]),
+      corporate_id: new FormControl('', [
+        Validators.required
+      ]),
       phone: new FormControl('', [
         Validators.required,
         Validators.minLength(5),
@@ -51,6 +58,17 @@ export class SignUpComponent implements OnInit {
         Validators.minLength(6),
         Validators.maxLength(30)
       ])
+    });
+
+    this.corporateService.getCorporates().subscribe(data => {
+      if (data.status === 200) {
+        for (let i = 0 ; i < data.corporate_info_details.length; i++) {
+          this.corporates.push({
+            label: data.corporate_info_details[i].corporate_name,
+            value: data.corporate_info_details[i].corporate_id
+          });
+        }
+      }
     });
   }
   onSubmit() {
