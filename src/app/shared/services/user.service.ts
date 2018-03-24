@@ -51,7 +51,7 @@ export class UserService {
       )
       .map(res => {
         this.token = null;
-        localStorage.removeItem('currentUser');
+        localStorage.clear();
         return res;
       });
   }

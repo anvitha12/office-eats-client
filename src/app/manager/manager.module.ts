@@ -7,6 +7,8 @@ import { ManagerComponent } from './manager.component';
 import { UserService } from '../shared/services/user.service';
 import { ManagerService } from './manager.service';
 
+import { ManagerGuard } from './manager.guard';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -14,6 +16,6 @@ import { ManagerService } from './manager.service';
     ManagerRoutingModule
   ],
   declarations: [ManagerComponent],
-  providers: [UserService, ManagerService]
+  providers: [UserService, ManagerService, ManagerGuard]
 })
 export class ManagerModule { }
