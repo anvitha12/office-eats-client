@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ManagerComponent } from './manager.component';
+import { ManagerGuard } from './manager.guard';
 
 const routes: Routes = [
   {
-    path: '', component: ManagerComponent,
+    path: '', component: ManagerComponent, canActivate: [ ManagerGuard ],
     children: [
       {
         path: '', redirectTo: 'manager', pathMatch: 'full'
