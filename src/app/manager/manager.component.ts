@@ -35,7 +35,7 @@ export class ManagerComponent implements OnInit {
       .signout()
       .subscribe((data) => {
         if (data.status === 201) {
-          this.router.navigate(['/auth/sign-in']);
+          window.location.href = '/auth/sign-in';
         }
       });
   }
