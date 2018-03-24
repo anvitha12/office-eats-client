@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FormControl, FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { EventsService } from '../events.service';
+import { ManagerService } from '../../manager.service';
+import { Resturant } from '../../models/resturant';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-new-event',
@@ -11,48 +14,20 @@ import { EventsService } from '../events.service';
 export class NewEventComponent implements OnInit {
 
   formGroup: FormGroup;
-  restaurants: any[];
+  restaurants: Resturant[];
+  resturantsList: SelectItem[];
   minDateValue: Date;
 
-  constructor(private titleService: Title, private eventsService: EventsService, private formBuilder: FormBuilder) { }
+  constructor(
+    private titleService: Title,
+    private eventsService: EventsService,
+    private managerService: ManagerService,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.minDateValue = new Date();
-    this.restaurants = [
-      {
-        restaurantId: 1,
-        name: 'Gringos Mexican Kitchen',
-        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',
-      },
-      {
-        restaurantId: 2,
-        name: 'Clear Springs Restaurant',
-        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',
-      },
-      {
-        restaurantId: 1,
-        name: 'Gringos Mexican Kitchen',
-        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',
-      },
-      {
-        restaurantId: 2,
-        name: 'Clear Springs Restaurant',
-        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',
-      },
-      {
-        restaurantId: 1,
-        name: 'Gringos Mexican Kitchen',
-        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',
-      },
-      {
-        restaurantId: 2,
-        name: 'Clear Springs Restaurant',
-        thumbnail: 'https://b.zmtcdn.com/data/pictures/chains/0/16881680/49f773d950c44036d9aa362c635964c4.jpg',
-      }
-    ];
-
     this.titleService.setTitle('New Event | Office Eats');
-
+    this.minDateValue = new Date();
+    this.resturantsList = [];
     this.formGroup = new FormGroup({
       meetingTitle: new FormControl('', [
         Validators.required,
@@ -74,9 +49,18 @@ export class NewEventComponent implements OnInit {
       individualOrder: new FormControl(false),
       attendeesList: new FormControl(''),
       attendees: new FormArray([]),
-      restaurant: new FormControl('', [
+      restaurants: new FormControl('', [
         Validators.required
       ])
+    });
+
+    this.managerService.getManagerCorporateResturants().subscribe(data => {
+      if (data.status === 200) {
+        this.restaurants = data.restaurants_details;
+        for (let i = 0; i < this.restaurants.length; i++) {
+          this.resturantsList.push({label: this.restaurants[i].restaurant_name, value: this.restaurants[i].restaurant_id});
+        }
+      }
     });
   }
 
@@ -139,7 +123,13 @@ export class NewEventComponent implements OnInit {
     this.formGroup.value.splitEven ? ctrl.enable() : ctrl.disable();
   }
 
-  onSubmit() {
+  onSelectResturant(event) {
+    if (event.value.length > 3) {
+      event.value.splice(0, 1);
+    }
+  }
+
+  createEvent() {
     this.eventsService.createEvent(this.formGroup.value)
       .subscribe(data => {
 

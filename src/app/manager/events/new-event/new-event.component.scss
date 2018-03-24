@@ -1,0 +1,17 @@
+.resturant {
+    position: relative;
+    border: 1px solid #00468A;
+    &.selected {
+        box-shadow: 0px 12px 22px 1px #333;
+    }
+    cursor: pointer;
+    .name {
+        position: absolute;
+        bottom: 0;
+        padding: 10px 20px;
+        background-color: rgba(0, 0, 0, 0.69);
+        width: 100%;
+        color: #fff;
+        font-size: 18px;
+    }
+}

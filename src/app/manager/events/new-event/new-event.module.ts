@@ -7,11 +7,12 @@ import { NewEventRoutingModule } from './new-event-routing.module';
 import { NewEventComponent } from './new-event.component';
 
 import { EventsService } from '../events.service';
+import { ManagerService } from '../../manager.service';
 
 import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { CarouselModule } from 'primeng/carousel';
-import {CalendarModule} from 'primeng/calendar';
+import { CalendarModule } from 'primeng/calendar';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @NgModule({
   imports: [
@@ -21,10 +22,10 @@ import {CalendarModule} from 'primeng/calendar';
     HttpClientModule,
     CheckboxModule,
     RadioButtonModule,
-    CarouselModule,
-    CalendarModule
+    CalendarModule,
+    SelectButtonModule
   ],
   declarations: [NewEventComponent],
-  providers: [EventsService]
+  providers: [EventsService, ManagerService]
 })
 export class NewEventModule { }

@@ -7,7 +7,7 @@
       <div class="media-body media-middle">
         <div class="pull-right">
           <button class="btn btn-warning" type="button" (click)="goBack()">Cancel</button>
-          <button class="btn btn-primary" type="button">Save</button>
+          <button class="btn btn-primary" type="button" (click)="createEvent()" [disabled]="!formGroup.valid">Save</button>
         </div>
         <div class="clearfix"></div>
       </div>
@@ -152,24 +152,15 @@
       </div>
       <div class="row">
         <div class="col-md-12 mb-20">
-          <p-carousel headerText="Restaurants" [value]="restaurants">
-            <ng-template let-restaurant pTemplate="item">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="resturant">
-                      <img [src]="restaurant.thumbnail" class="img-responsive"> 
-                      <p>{{restaurant.name}}</p>
-                  </div>                  
-                </div>
-              </div>
-            </ng-template>
-          </p-carousel>
+          <h4 class="mb0 mt0">Resturant</h4>
+          <hr>
+          <p-selectButton [options]="resturantsList" (onChange)="onSelectResturant($event)" formControlName="restaurants" multiple="multiple"></p-selectButton>
         </div>
       </div>
       <!-- Form actions -->
       <div class="form-group">
         <div class="col-md-12 text-right">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary" (click)="createEvent()" [disabled]="!formGroup.valid">Save</button>
         </div>
       </div>
     </form>

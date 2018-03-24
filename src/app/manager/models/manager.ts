@@ -1,5 +1,3 @@
-import { CommonResponse } from '../../shared/models/user';
-
 export class Manager {
     status: number;
     message: string;
@@ -13,4 +11,5 @@ export class ManagerDetails {
     u_l_name: string;
     u_gender: string;
     u_phone: number;
+    corporate_id: number;
 }

@@ -6,12 +6,16 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { Manager } from '../manager/models/manager';
+import { GetResturantsResponse } from '../manager/models/resturant';
 import { baseURL } from '../shared/constants/base-url';
 
 @Injectable()
 export class ManagerService {
+
   public token: string;
   public id: string;
+  public corporate_id: string;
+
   constructor(private httpClient: HttpClient) {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.token = currentUser.token;
@@ -19,8 +23,13 @@ export class ManagerService {
   }
 
   private getManagerDetailsUrl = baseURL + 'Users/detail/';
+  private getManagerCorporateResturantsUrl = baseURL + 'CreateEvents/restaurants_info';
 
-  getCurrentManagerDetails() {
+  public setManagerCorporateId(corporate_id: string) {
+    this.corporate_id = corporate_id;
+  }
+
+  getManagerDetails() {
     let headers = new HttpHeaders();
     headers = headers
       .set('Client-Service', 'frontend-client')
@@ -40,6 +49,30 @@ export class ManagerService {
         return res;
       }).catch(error => this.handleError(error));
   }
+
+  getManagerCorporateResturants() {
+    let headers = new HttpHeaders();
+    headers = headers
+      .set('Client-Service', 'frontend-client')
+      .set('Auth-Key', 'cmsrestapi')
+      .set('Authorization', this.token)
+      .set('User-ID', this.id)
+      .set('Corporate-ID', '2')
+      .set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+    return this.httpClient
+      .get <GetResturantsResponse>(
+        this.getManagerCorporateResturantsUrl,
+        {
+          headers: headers
+        },
+      )
+      .map(res => {
+        console.log(this.corporate_id);
+        return res;
+      }).catch(error => this.handleError(error));
+  }
+
 
   public handleError(error: Response | any) {
     let errMsg: string;
