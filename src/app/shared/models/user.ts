@@ -5,6 +5,7 @@ export class User {
   email: string;
   phone: string;
   password: string;
+  corporate_id: number;
 }
 
 export class CommonResponse {

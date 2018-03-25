@@ -9,6 +9,9 @@ body {
 hr {
     border-color: #ccc;
 }
+.w-100-p {
+  width: 100%;
+}
 .mt-0{
     margin-top: 0;
 }
@@ -18,4 +21,11 @@ hr {
 .mb-20 {
     margin-bottom: 20px;
 }
-
+.pt-7 {
+  padding-top: 7px;
+}
+.auth-form {
+    border: 1px solid #ccc;;
+    border-radius: 5px;
+    padding: 20px;
+}

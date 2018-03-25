@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../shared/services/user.service';
 import { ManagerService } from './manager.service';
-
+import { ManagerDetails } from './models/manager';
 @Component({
   selector: 'app-manager',
   templateUrl: './manager.component.html',
@@ -10,6 +10,7 @@ import { ManagerService } from './manager.service';
 })
 export class ManagerComponent implements OnInit {
 
+  managerDetails: ManagerDetails = <ManagerDetails>{};
   isSidebarOpen: boolean;
 
   constructor(private userService: UserService,
@@ -22,9 +23,7 @@ export class ManagerComponent implements OnInit {
 
   ngOnInit() {
     this.isSidebarOpen = false;
-    this.managerService.getManagerDetails().subscribe((data) => {
-      console.log(data);
-    });
+    this.managerDetails = this.managerService._getManagerDetails();
   }
 
   toggleSidebar() {

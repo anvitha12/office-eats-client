@@ -1,3 +1,4 @@
+
 <form class="auth-form" [formGroup]="formGroup" (validSubmit)="onSubmit()">
   <h2 class="mt-0 mb-0">Sign Up</h2>
   <hr>
@@ -20,6 +21,13 @@
   <div class="form-group">
     <label for="email" class="control-label">Email</label>
     <input type="text" class="form-control" name="email" id="email" formControlName="email">
+  </div>
+  <div class="form-group">
+    <label for="corporate_id" class="control-label">Company</label>
+    <select class="form-control" name="corporate_id" id="corporate_id" formControlName="corporate_id">
+      <option value="">Select Company</option>
+      <option *ngFor="let corporate of corporates" [ngValue]="corporate.corporate_id"> {{corporate.corporate_name}} </option>
+    </select>
   </div>
   <div class="form-group">
     <label for="phone" class="control-label">Phone</label>

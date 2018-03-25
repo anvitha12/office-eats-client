@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { SignUpRoutingModule } from './sign-up-routing.module';
 import { SignUpComponent } from './sign-up.component';
 import { UserService } from '../../shared/services/user.service';
+import { CorporateService } from '../../shared/services/corporate.service';
+
 
 import { SharedModule } from '../../shared/shared.module';
 
@@ -11,11 +13,12 @@ import { SharedModule } from '../../shared/shared.module';
   imports: [
     CommonModule,
     SharedModule,
-    SignUpRoutingModule,
+    SignUpRoutingModule
   ],
   declarations: [SignUpComponent],
   providers: [
-    UserService
+    UserService,
+    CorporateService
   ]
 })
 export class SignUpModule { }

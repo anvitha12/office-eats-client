@@ -5,6 +5,7 @@ import { FormsModule , ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
+import { StorageService} from './services/storage.service';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ export class SharedModule {
     return {
         ngModule: SharedModule,
         providers: [
-          Title
+          Title,
+          StorageService
         ]
     };
   }

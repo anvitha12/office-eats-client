@@ -3,18 +3,30 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
 import { User, CommonResponse, AuthorizeResposne } from '../models/user';
+import { baseURL } from '../constants/base-url';
+import { StorageService } from './storage.service';
 
 @Injectable()
 export class UserService {
-  public token: string;
-  constructor(private httpClient: HttpClient) {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.token = currentUser && currentUser.token;
+
+  private storage: StorageService;
+  private authorizeUrl = baseURL + 'Users/login';
+  private createUserUrl = baseURL + 'Users/register';
+  private signOutUrl = baseURL + 'Users/logout';
+
+  constructor(private httpClient: HttpClient,
+    private storageService: StorageService) {
+      this.storage = storageService;
   }
 
-  private authorizeUrl = 'http://dev.sparcteam.com/officeeatz.com/server/index.php/Users/login';
-  private createUserUrl = 'http://dev.sparcteam.com/officeeatz.com/server/index.php/Users/register';
-  private signOutUrl = 'http://dev.sparcteam.com/officeeatz.com/server/index.php/Users/logout';
+  public getToken(): any {
+        return this.storage.retrieve('currentUser');
+  }
+
+  public resetCurrentUser() {
+    this.storage.store('currentUser', '');
+    this.storage.store('corporate_id', '');
+  }
 
   authorize(user: User) {
     let headers = new HttpHeaders();
@@ -29,7 +41,7 @@ export class UserService {
       .post<AuthorizeResposne>(this.authorizeUrl, formData, { headers: headers })
       .map(res => {
         if (res.token) {
-          localStorage.setItem('currentUser', JSON.stringify({ id: res.id, token: res.token }));
+          this.storage.store('currentUser', { id: res.id, token: res.token });
         }
         return res;
       });
@@ -49,8 +61,7 @@ export class UserService {
         }
       )
       .map(res => {
-        this.token = null;
-        localStorage.removeItem('currentUser');
+        this.resetCurrentUser();
         return res;
       });
   }
