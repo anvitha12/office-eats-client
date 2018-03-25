@@ -1,9 +1,12 @@
-<div class='auth-wrapper'>
-  <div class='auth-form'>
-    <div class='logo text-center mb-20'>
-      <img src='assets/images/logo.png' class='img-responsive' alt='Logo'>
+<div class="outer">
+  <div class="middle">
+    <div class="inner">
+      <div class='auth-form'>
+        <div class='logo mb-20'>
+          <img src='assets/images/logo.png' width="200" class='img-responsive' alt='Logo'>
+        </div>
+        <router-outlet></router-outlet>
+      </div>
     </div>
-    <router-outlet></router-outlet>
   </div>
 </div>
-

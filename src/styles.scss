@@ -6,12 +6,29 @@ html, body {
 body {
   font-family: 'Montserrat', sans-serif;
 }
+
+/*--Colors--*/
+$brand-color: #0D83DD;
+$brand-color-light: #86c1ee;
+
+/*-- Boostrap css overwirte--*/
+a {
+    color: $brand-color;
+    &:hover, &:focus{
+        color: $brand-color-light;
+        text-decoration: none;
+    }
+}
 hr {
     border-color: #ccc;
 }
+
+/*--Width--*/
 .w-100-p {
   width: 100%;
 }
+
+/*-- margins --*/
 .mt-0{
     margin-top: 0;
 }
@@ -21,11 +38,14 @@ hr {
 .mb-20 {
     margin-bottom: 20px;
 }
-.pt-7 {
-  padding-top: 7px;
+
+
+/*--text-colors--*/
+.text-brand {
+    color: $brand-color;
 }
-.auth-form {
-    border: 1px solid #ccc;;
-    border-radius: 5px;
-    padding: 20px;
+
+/*--Display--*/
+.d-block {
+    display: block;
 }

@@ -1,23 +1,20 @@
 <form [formGroup]="formGroup" (validSubmit)="onSubmit()">
-  <h2 class="mt-0 mb-0">Sign In</h2>
-  <hr>
-  <div class="form-group">
-    <label for="email" class="control-label">Email</label>
-    <input type="text" class="form-control" name="email" id="email" formControlName="email">
+  <h3 class="mt-0 mb-20 text-brand text-center">Sign In to Your Account</h3>
+
+  <div class="form-group form-group-lg">
+    <label for="email" class="control-label sr-only">Email</label>
+    <input type="text" class="form-control" name="email" id="email" formControlName="email" placeholder="Email">
+  </div>
+  <div class="form-group form-group-lg">
+    <label for="password" class="control-label sr-only">Password</label>
+    <input type="password" class="form-control" name="password" id="password" formControlName="password" placeholder="Password">
   </div>
   <div class="form-group">
-    <label for="password" class="control-label">Password</label>
-    <input type="password" class="form-control" name="password" id="password" formControlName="password">
+    <button class="btn btn-primary btn-lg btn-block" type="submit">Sign In</button>
   </div>
-  <div class="form-group">
-    <button class="btn btn-primary" type="submit">Sign In</button>
-  </div>
-  <a routerLink='/auth/forgot-password'>Forgot Your Password?</a>
-  <hr>
-  <div class="sign-up">
-    <p>
-      <a href="javascript:;">Don't have an account yet?</a>
-    </p>
-    <button class="btn btn-primary" type="button" routerLink='/auth/sign-up'>Sign Up</button>
-  </div>
+  <a routerLink='/auth/forgot-password' class="d-block text-center mb-20">Forgot Your Password?</a>
+  <p class="text-center mb-0">
+    Don't have an account yet?
+    <a routerLink='/auth/sign-up'>Sign Up</a>
+  </p>
 </form>
