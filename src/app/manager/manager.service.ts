@@ -8,20 +8,20 @@ import 'rxjs/add/observable/throw';
 import { Manager, ManagerDetails } from '../manager/models/manager';
 import { GetResturantsResponse } from '../manager/models/resturant';
 import { baseURL } from '../shared/constants/base-url';
+import { UserService } from '../shared/services/user.service';
+
+import { StorageService } from '../shared/services/storage.service';
 
 @Injectable()
 export class ManagerService {
 
-  public token: string;
-  public id: string;
-  public corporate_id: string;
   public managerDetails: ManagerDetails;
+  private storage: StorageService;
 
-  constructor(private httpClient: HttpClient) {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.token = currentUser.token;
-    this.id = currentUser.id;
-    this.corporate_id = localStorage.getItem('corporate_id');
+  constructor(private httpClient: HttpClient,
+    private userService: UserService,
+    private storageService: StorageService) {
+      this.storage = storageService;
   }
 
   private getManagerDetailsUrl = baseURL + 'Users/detail/';
@@ -29,7 +29,6 @@ export class ManagerService {
 
   public _setManagerDetails(managerDetails: ManagerDetails) {
     this.managerDetails = managerDetails;
-    localStorage.setItem('corporate_id', this.managerDetails.corporate_id.toString());
   }
 
   public _getManagerDetails() {
@@ -41,18 +40,21 @@ export class ManagerService {
     headers = headers
       .set('Client-Service', 'frontend-client')
       .set('Auth-Key', 'cmsrestapi')
-      .set('Authorization', this.token)
-      .set('User-ID', this.id)
+      .set('Authorization', this.userService.getToken().token)
+      .set('User-ID', this.userService.getToken().id)
       .set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
     return this.httpClient
       .get <Manager>(
-        this.getManagerDetailsUrl + this.id,
+        this.getManagerDetailsUrl + this.userService.getToken().id,
         {
           headers: headers
         },
       )
       .map(res => {
+        if (res.user_details.corporate_id) {
+          this.storage.store('corporate_id', res.user_details.corporate_id);
+        }
         return res;
       }).catch(error => this.handleError(error));
   }
@@ -62,9 +64,9 @@ export class ManagerService {
     headers = headers
       .set('Client-Service', 'frontend-client')
       .set('Auth-Key', 'cmsrestapi')
-      .set('Authorization', this.token)
-      .set('User-ID', this.id)
-      .set('Corporate-ID', this.corporate_id || '')
+      .set('Authorization', this.userService.getToken().token)
+      .set('User-ID', this.userService.getToken().id)
+      .set('Corporate-ID', this.storage.retrieve('corporate_id'))
       .set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
     return this.httpClient

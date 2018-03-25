@@ -10,6 +10,8 @@ import { AuthorizeGuard } from './shared/guards/authorize.guard';
 
 import { baseURL } from './shared/constants/base-url';
 
+import { StorageService } from './shared/services/storage.service';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -23,6 +25,7 @@ import { baseURL } from './shared/constants/base-url';
   ],
   providers: [
     AuthorizeGuard,
+    StorageService,
     { provide: 'BaseURL', useValue: baseURL }
   ],
   bootstrap: [AppComponent]
