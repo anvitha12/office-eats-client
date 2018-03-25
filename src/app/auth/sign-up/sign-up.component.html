@@ -1,50 +1,47 @@
-<div class="row">
-  <div class="col-md-4 col-md-offset-4">
-    <form class="auth-form" [formGroup]="formGroup" (validSubmit)="onSubmit()">
-      <h2 class="mt-0 mb-0">Sign Up</h2>
-      <hr>
-      <div class="form-group">
-        <label for="first_name" class="control-label">First Name</label>
-        <input type="text" class="form-control" name="first_name" id="first_name" formControlName="first_name">
-      </div>
-      <div class="form-group">
-        <label for="last_name" class="control-label">Last Name</label>
-        <input type="text" class="form-control" name="last_name" id="last_name" formControlName="last_name">
-      </div>
-      <div class="form-group">
-        <label for="gender" class="control-label">Gender</label>
-        <select class="form-control" name="" id="" formControlName="gender">
-          <option value="">Select Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="email" class="control-label">Email</label>
-        <input type="text" class="form-control" name="email" id="email" formControlName="email">
-      </div>
-      <div class="form-group">
-        <label for="corporate_id" class="control-label">Company</label>
-        <select class="form-control" name="corporate_id" id="corporate_id" formControlName="corporate_id">
-          <option value="">Select Company</option>
-          <option *ngFor="let corporate of corporates" [ngValue]="corporate.corporate_id"> {{corporate.corporate_name}} </option>
-        </select>
-      </div>
-      <div class="form-group">
-          <label for="phone" class="control-label">Phone</label>
-          <input type="text" class="form-control" name="phone" id="phone" formControlName="phone">
-        </div>
-      <div class="form-group">
-        <label for="password" class="control-label">Password</label>
-        <input type="password" class="form-control" name="password" id="password" formControlName="password">
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary" type="submit">Sign Up</button>
-      </div>
-      <hr>
-      <div class="sign-in">
-        <a routerLink='/auth/sign-in'>Click here to sign in.</a>
-      </div>
-    </form>
+
+<form class="auth-form" [formGroup]="formGroup" (validSubmit)="onSubmit()">
+  <h2 class="mt-0 mb-0">Sign Up</h2>
+  <hr>
+  <div class="form-group">
+    <label for="first_name" class="control-label">First Name</label>
+    <input type="text" class="form-control" name="first_name" id="first_name" formControlName="first_name">
   </div>
-</div>
+  <div class="form-group">
+    <label for="last_name" class="control-label">Last Name</label>
+    <input type="text" class="form-control" name="last_name" id="last_name" formControlName="last_name">
+  </div>
+  <div class="form-group">
+    <label for="gender" class="control-label">Gender</label>
+    <select class="form-control" name="" id="" formControlName="gender">
+      <option value="">Select Gender</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="email" class="control-label">Email</label>
+    <input type="text" class="form-control" name="email" id="email" formControlName="email">
+  </div>
+  <div class="form-group">
+    <label for="corporate_id" class="control-label">Company</label>
+    <select class="form-control" name="corporate_id" id="corporate_id" formControlName="corporate_id">
+      <option value="">Select Company</option>
+      <option *ngFor="let corporate of corporates" [ngValue]="corporate.corporate_id"> {{corporate.corporate_name}} </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="phone" class="control-label">Phone</label>
+    <input type="text" class="form-control" name="phone" id="phone" formControlName="phone">
+  </div>
+  <div class="form-group">
+    <label for="password" class="control-label">Password</label>
+    <input type="password" class="form-control" name="password" id="password" formControlName="password">
+  </div>
+  <div class="form-group">
+    <button class="btn btn-primary" type="submit">Sign Up</button>
+  </div>
+  <hr>
+  <div class="sign-in">
+    <a routerLink='/auth/sign-in'>Click here to sign in.</a>
+  </div>
+</form>
