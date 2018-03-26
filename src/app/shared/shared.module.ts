@@ -3,10 +3,15 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { FormsModule , ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
-import { StorageService} from './services/storage.service';
 
+import { NgProgressModule } from '@ngx-progressbar/core';
+import { NgProgressHttpModule } from '@ngx-progressbar/http';
+import { NgProgressRouterModule } from '@ngx-progressbar/router';
+
+import { StorageService} from './services/storage.service';
 
 @NgModule({
   imports: [
@@ -14,6 +19,9 @@ import { StorageService} from './services/storage.service';
     ReactiveFormsModule,
     HttpClientModule,
     ToastModule,
+    NgProgressModule,
+    NgProgressHttpModule,
+    NgProgressRouterModule,
     NgBootstrapFormValidationModule
   ],
   declarations: [],

@@ -3,6 +3,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
+
+import { NgProgressModule } from '@ngx-progressbar/core';
+import { NgProgressHttpModule } from '@ngx-progressbar/http';
+import { NgProgressRouterModule } from '@ngx-progressbar/router';
+
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -20,6 +25,14 @@ import { StorageService } from './shared/services/storage.service';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    NgProgressModule.forRoot({
+      spinnerPosition: 'left',
+      spinner: false,
+      color: '#85c525',
+      thick: true
+    }),
+    NgProgressRouterModule,
+    NgProgressHttpModule,
     ToastModule.forRoot(),
     NgBootstrapFormValidationModule.forRoot()
   ],
