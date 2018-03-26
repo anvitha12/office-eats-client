@@ -21,9 +21,20 @@
         .logo img {
           margin: 0 auto;
         }
-      } 
+      }
     }
-  } 
+  }
 }
 
 
+@media (max-width: 768px) {
+  .outer {
+    .middle {
+      .inner {
+        .auth-form {
+          padding: 28px 20px;
+        }
+      }
+    }
+  }
+}

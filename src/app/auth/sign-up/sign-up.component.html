@@ -1,5 +1,4 @@
-
-<form class="auth-form" [formGroup]="formGroup" (validSubmit)="onSubmit()">
+<form [formGroup]="formGroup" (validSubmit)="onSubmit()">
   <h3 class="mt-0 text-brand text-center">Create Account</h3>
 
   <div class="form-group form-group-lg">
@@ -40,13 +39,13 @@
   <div class="form-group">
     <button class="btn btn-primary btn-lg btn-block" type="submit">Sign Up</button>
   </div>
- <p class="text-center">
-  <small>By continuing, you agree to the 
-    <a href="javascript:;">Terms of Service.</a>
-  </small>
- </p>
+  <p class="text-center">
+    <small>By continuing, you agree to the
+      <a href="javascript:;">Terms of Service.</a>
+    </small>
+  </p>
   <p class="text-center mb-0">
-      Already have an account? 
-      <a routerLink='/auth/sign-in'>Sign In</a>
-    </p>
+    Already have an account?
+    <a routerLink='/auth/sign-in'>Sign In</a>
+  </p>
 </form>
