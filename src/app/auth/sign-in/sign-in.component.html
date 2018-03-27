@@ -1,9 +1,9 @@
-<form [formGroup]="formGroup" (validSubmit)="onSubmit()">
+<form [formGroup]="signInForm" (validSubmit)="onSubmit()">
   <h3 class="mt-0 mb-20 text-brand text-center">Sign In to Your Account</h3>
 
   <div class="form-group form-group-lg">
     <label for="email" class="control-label sr-only">Email</label>
-    <input type="text" class="form-control" name="email" id="email" formControlName="email" placeholder="Email">
+    <input type="email" class="form-control" name="email" id="email" formControlName="email" placeholder="Email">
   </div>
   <div class="form-group form-group-lg">
     <label for="password" class="control-label sr-only">Password</label>

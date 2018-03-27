@@ -1,27 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute  } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
+
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { UserService } from '../../shared/services/user.service';
-import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss']
 })
-export class SignInComponent implements OnInit {
-  user: User;
+export class SignInComponent implements OnInit, OnDestroy {
+
   returnUrl: string;
-  formGroup: FormGroup;
+  signInForm: FormGroup;
+  private unsubscribe: Subject<void> = new Subject();
 
   constructor(
     private titleService: Title,
     public toastr: ToastsManager,
     private userService: UserService,
     private router: Router,
-    private activedRoute: ActivatedRoute,) {
+    private activedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -29,10 +33,9 @@ export class SignInComponent implements OnInit {
     // get return url from route parameters or default to '/'
     this.returnUrl = this.activedRoute.snapshot.queryParams['returnUrl'] || '/manager';
 
-    this.formGroup = new FormGroup({
+    this.signInForm = new FormGroup({
       email: new FormControl('', [
-        Validators.required,
-        Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)
+        Validators.email
       ]),
       password: new FormControl('', [
         Validators.required,
@@ -40,11 +43,13 @@ export class SignInComponent implements OnInit {
         Validators.maxLength(30)
       ])
     });
+
   }
 
   onSubmit() {
     this.userService
-      .authorize(this.formGroup.value)
+      .authorize(this.signInForm.value)
+      .pipe(takeUntil(this.unsubscribe))
       .subscribe((data) => {
         if (data.status === 201) {
           this.router.navigate([this.returnUrl]);
@@ -53,4 +58,10 @@ export class SignInComponent implements OnInit {
         }
       });
   }
+
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
+
 }
