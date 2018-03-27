@@ -2,12 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { NewEventRoutingModule } from './new-event-routing.module';
 import { NewEventComponent } from './new-event.component';
 
 import { EventsService } from '../events.service';
 import { ManagerService } from '../../manager.service';
+
+
+
+import { CommonInterceptor } from '../../../shared/interceptors/common.interceptor';
+import { TokenInterceptor } from '../../../shared/interceptors/token.interceptor';
 
 import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
@@ -26,6 +32,18 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     SelectButtonModule
   ],
   declarations: [NewEventComponent],
-  providers: [EventsService, ManagerService]
+  providers: [
+    EventsService, ManagerService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CommonInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ]
 })
 export class NewEventModule { }

@@ -36,20 +36,9 @@ export class ManagerService {
   }
 
   getManagerDetails() {
-    let headers = new HttpHeaders();
-    headers = headers
-      .set('Client-Service', 'frontend-client')
-      .set('Auth-Key', 'cmsrestapi')
-      .set('Authorization', this.userService.getToken().token)
-      .set('User-ID', this.userService.getToken().id)
-      .set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-
     return this.httpClient
       .get <Manager>(
-        this.getManagerDetailsUrl + this.userService.getToken().id,
-        {
-          headers: headers
-        },
+        this.getManagerDetailsUrl + this.userService.getToken().id
       )
       .map(res => {
         if (res.user_details.corporate_id) {
@@ -62,12 +51,7 @@ export class ManagerService {
   getManagerCorporateResturants() {
     let headers = new HttpHeaders();
     headers = headers
-      .set('Client-Service', 'frontend-client')
-      .set('Auth-Key', 'cmsrestapi')
-      .set('Authorization', this.userService.getToken().token)
-      .set('User-ID', this.userService.getToken().id)
-      .set('Corporate-ID', this.storage.retrieve('corporate_id'))
-      .set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+      .set('Corporate-ID', this.storage.retrieve('corporate_id'));
 
     return this.httpClient
       .get <GetResturantsResponse>(

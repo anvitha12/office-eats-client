@@ -12,10 +12,8 @@ export class CorporateService {
   private getCorporatesUrl = baseURL + 'Users/corporate_info';
 
   getCorporates() {
-    let headers = new HttpHeaders();
-    headers = headers.set('Client-Service', 'frontend-client').set('Auth-Key', 'cmsrestapi');
     return this.httpClient
-      .get<GetCorporatesResponse>(this.getCorporatesUrl, { headers: headers })
+      .get<GetCorporatesResponse>(this.getCorporatesUrl)
       .map(res => {
         return res;
       });

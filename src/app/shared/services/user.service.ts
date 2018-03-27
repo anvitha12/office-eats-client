@@ -29,8 +29,6 @@ export class UserService {
   }
 
   authorize(user: User) {
-    let headers = new HttpHeaders();
-    headers = headers.set('Client-Service', 'frontend-client').set('Auth-Key', 'cmsrestapi');
     const formData = new FormData();
       for (const key in user) {
         if (user[key]) {
@@ -38,7 +36,7 @@ export class UserService {
         }
       }
     return this.httpClient
-      .post<AuthorizeResposne>(this.authorizeUrl, formData, { headers: headers })
+      .post<AuthorizeResposne>(this.authorizeUrl, formData)
       .map(res => {
         if (res.token) {
           this.storage.store('currentUser', { id: res.id, token: res.token });
@@ -48,17 +46,10 @@ export class UserService {
   }
 
   signout() {
-    let headers = new HttpHeaders();
-    headers = headers.set('Client-Service', 'frontend-client')
-    .set('Auth-Key', 'cmsrestapi')
-    .set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
     return this.httpClient
       .post<CommonResponse>(
         this.signOutUrl,
-        new FormData(),
-        {
-          headers: headers
-        }
+        new FormData()
       )
       .map(res => {
         this.resetCurrentUser();
@@ -67,8 +58,6 @@ export class UserService {
   }
 
   createUser(user: User) {
-    let headers = new HttpHeaders();
-    headers = headers.set('Client-Service', 'frontend-client').set('Auth-Key', 'cmsrestapi');
     const formData = new FormData();
     for (const key in user) {
       if (user[key]) {
@@ -78,10 +67,7 @@ export class UserService {
     return this.httpClient
       .post<CommonResponse>(
         this.createUserUrl,
-        formData,
-        {
-          headers: headers
-        }
+        formData
       )
       .map(res => {
         return res;
