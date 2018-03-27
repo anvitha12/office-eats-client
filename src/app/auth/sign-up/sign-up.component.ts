@@ -67,7 +67,9 @@ export class SignUpComponent implements OnInit, OnDestroy {
       ])
     });
 
-    this.corporateService.getCorporates().subscribe(data => {
+    this.corporateService.getCorporates()
+    .pipe(takeUntil(this.unsubscribe))
+    .subscribe(data => {
       if (data.status === 200) {
         this.corporates = data.corporate_info_details;
       }
