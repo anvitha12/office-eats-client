@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
+
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { UserService } from '../../shared/services/user.service';
-import { User } from '../../shared/models/user';
 import { CorporateService } from '../../shared/services/corporate.service';
 import { Corporate } from '../../shared/models/corporate';
 
@@ -13,10 +16,13 @@ import { Corporate } from '../../shared/models/corporate';
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
-export class SignUpComponent implements OnInit {
-  user: User;
+export class SignUpComponent implements OnInit, OnDestroy {
+
+  signUpForm: FormGroup;
   corporates: Corporate[];
-  formGroup: FormGroup;
+
+  private unsubscribe: Subject<void> = new Subject();
+
   constructor(
     public toastr: ToastsManager,
     private titleService: Title,
@@ -26,8 +32,10 @@ export class SignUpComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.titleService.setTitle('Sign Up | Office Eats');
-    this.formGroup = new FormGroup({
+
+    this.signUpForm = new FormGroup({
       first_name: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
@@ -42,8 +50,7 @@ export class SignUpComponent implements OnInit {
         Validators.required
       ]),
       email: new FormControl('', [
-        Validators.required,
-        Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)
+        Validators.email,
       ]),
       corporate_id: new FormControl('', [
         Validators.required
@@ -66,9 +73,11 @@ export class SignUpComponent implements OnInit {
       }
     });
   }
-  onSubmit() {
+
+  onSignUp() {
     this.userService
-      .createUser(this.formGroup.value)
+      .createUser(this.signUpForm.value)
+      .pipe(takeUntil(this.unsubscribe))
       .subscribe(data => {
         if (data.status === 201) {
           this.toastr.success('Successfully registerd.', 'Success!', { dismiss: 'controlled', showCloseButton: true, toastLife: 4000 });
@@ -78,4 +87,10 @@ export class SignUpComponent implements OnInit {
         }
       });
   }
+
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
+
 }
