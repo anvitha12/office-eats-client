@@ -1,36 +1,5 @@
 <div class="wrapper" [ngClass]="isSidebarOpen ? 'active' : ''">
-
-  <!-- Sidebar -->
-  <nav class="sidebar">
-    <!-- Sidebar Header -->
-    <div class="sidebar-header">
-      <div class="profile">
-        <div class="image">
-          <img src="http://www.hammersmithconsultancy.com/templates/templates/tem-4/images/icon-full-youth.png">
-        </div>
-        <div class="name">
-          {{managerDetails.u_f_name}} {{managerDetails.u_l_name}}
-        </div>
-        <div class="sign-out">
-          <a href="javascript:;" (click)=signOut()>Sign Out</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sidebar Links -->
-    <ul class="list-unstyled main-menu">
-      <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a routerLink='/manager'>Dashboard</a>
-      </li>
-      <li routerLinkActive="active">
-        <a routerLink='/manager/events'>Events</a>
-      </li>
-      <li>
-        <a href="#">Attendees</a>
-      </li>
-    </ul>
-  </nav>
-
+  <app-sidebar [managerDetails]="managerDetails" (signOut)="signOut()"></app-sidebar>
   <!-- Page Content -->
   <div class="content">
     <div class="container-fluid">

@@ -12,6 +12,7 @@ import { TokenInterceptor } from '../shared/interceptors/token.interceptor';
 
 import { SharedModule } from '../shared/shared.module';
 import { ManagerGuard } from './manager.guard';
+import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,7 @@ import { ManagerGuard } from './manager.guard';
     SharedModule,
     ManagerRoutingModule
   ],
-  declarations: [ManagerComponent],
+  declarations: [ManagerComponent, SidebarComponent],
   providers: [
     UserService, ManagerService, ManagerGuard,
     {

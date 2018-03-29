@@ -1,59 +1,6 @@
 .wrapper {
     position: relative;
 }
-.sidebar {
-    min-width: 200px;
-    max-width: 200px;
-    min-height: 100%;
-    position: fixed;
-    background: #00468A;
-    color: #fff;
-    transition: all 0.3s;
-    z-index: 1;
-    .sidebar-header {
-        padding: 20px;
-        background: #00468A;
-        text-align: center;
-        border-bottom: 1px solid rgba(255,255,255,.15);
-        .profile {
-            .image>img {
-                height: 90px;
-            }
-            .name {
-                margin-top: 10px;
-                font-size: 1.4em;
-            }
-            .sign-out {
-                a {
-                    color: #00b2d9;
-                    &:hover {
-                        color: #00b2d9;
-                        text-decoration: none;
-                    }
-                }                
-            }
-        }
-    }
-    ul.main-menu {
-        li{
-           &.active {            
-                color: #fff;
-                background: rgba(0,0,0,.25);
-           } 
-        }
-        li>a{
-            padding: 10px;
-            font-size: 1.2em;
-            color: #fff;
-            display: block;
-            &:hover{
-                color: #fff;
-                background: rgba(0,0,0,.25);
-                text-decoration: none;
-            }
-        }
-    }
-}
 
 .content {
    margin-left: 200px;

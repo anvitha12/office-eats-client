@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../shared/services/user.service';
 import { ManagerService } from './manager.service';
 import { ManagerDetails } from './models/manager';
 @Component({
@@ -13,7 +12,7 @@ export class ManagerComponent implements OnInit {
   managerDetails: ManagerDetails = <ManagerDetails>{};
   isSidebarOpen: boolean;
 
-  constructor(private userService: UserService,
+  constructor(
     private managerService: ManagerService,
     private router: Router) {
     router.events.subscribe((val) => {
@@ -30,13 +29,4 @@ export class ManagerComponent implements OnInit {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
 
-  signOut() {
-    this.userService
-      .signout()
-      .subscribe((data) => {
-        if (data.status === 201) {
-          this.router.navigate(['/auth/sign-in']);
-        }
-      });
-  }
 }
