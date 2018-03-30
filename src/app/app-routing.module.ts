@@ -14,6 +14,10 @@ const routes: Routes = [
     path: 'manager',
     loadChildren: './manager/manager.module#ManagerModule',
     canActivate: [AuthorizeGuard],
+  },
+  {
+    path: 'attendee',
+    loadChildren: './attendee/attendee.module#AttendeeModule',
   }
 ];
 

@@ -45,8 +45,7 @@ export class NewEventComponent implements OnInit {
         Validators.required
       ]),
       splitEven: new FormControl(false),
-      catering: new FormControl(false),
-      individualOrder: new FormControl(false),
+      orderType: new FormControl(null, [Validators.required]),
       attendeesList: new FormControl(''),
       attendees: new FormArray([]),
       restaurants: new FormControl('', [
@@ -104,18 +103,6 @@ export class NewEventComponent implements OnInit {
     const control = <FormArray>this.formGroup.controls['attendees'];
     // remove the chosen row
     control.removeAt(index);
-  }
-
-  onOrderTypeChange(orderType: string) {
-    if (orderType === 'isIndividualOrder') {
-      this.formGroup.patchValue({
-        catering: false
-      });
-    } else if (orderType === 'isCatering') {
-      this.formGroup.patchValue({
-        individualOrder: false
-      });
-    }
   }
 
   onSplitEvenChange() {

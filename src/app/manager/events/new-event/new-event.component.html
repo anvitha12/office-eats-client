@@ -78,7 +78,7 @@
           <div class="form-group">
             <label class="col-md-6 text-right" for="individualOrder">Individual Order</label>
             <div class="col-md-6">
-              <p-radioButton name="orderType" formControlName="individualOrder" [value]="true" (click)="onOrderTypeChange('isIndividualOrder')"></p-radioButton>
+              <p-radioButton name="orderType" formControlName="orderType" [value]="0" ></p-radioButton>
             </div>
           </div>
         </div>
@@ -86,7 +86,7 @@
           <div class="form-group">
             <label class="col-md-3 text-right" for="catering">Catering</label>
             <div class="col-md-6">
-              <p-radioButton name="orderType" formControlName="catering" [value]="true" (click)="onOrderTypeChange('isCatering')"></p-radioButton>
+              <p-radioButton name="orderType" formControlName="orderType" [value]="1"></p-radioButton>
             </div>
           </div>
         </div>
@@ -152,7 +152,7 @@
       </div>
       <div class="row">
         <div class="col-md-12 mb-20">
-          <h4 class="mb0 mt0">Resturant</h4>
+          <h4 class="mb0 mt0">Resturants</h4>
           <hr>
           <p-selectButton [options]="resturantsList" (onChange)="onSelectResturant($event)" formControlName="restaurants" multiple="multiple"></p-selectButton>
         </div>
