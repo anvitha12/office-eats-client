@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { FormControl, FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { EventsService } from '../events.service';
 import { ManagerService } from '../../manager.service';
 import { Resturant } from '../../models/resturant';
@@ -19,6 +21,8 @@ export class NewEventComponent implements OnInit {
   minDateValue: Date;
 
   constructor(
+    private router: Router,
+    public toastr: ToastsManager,
     private titleService: Title,
     private eventsService: EventsService,
     private managerService: ManagerService,
@@ -31,6 +35,8 @@ export class NewEventComponent implements OnInit {
     this.formGroup = new FormGroup({
       meetingTitle: new FormControl('', [
         Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(50)
       ]),
       date: new FormControl('', [
         Validators.required
@@ -39,14 +45,16 @@ export class NewEventComponent implements OnInit {
         Validators.required
       ]),
       venue: new FormControl('', [
-        Validators.required
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(50)
       ]),
       budget: new FormControl({value: '', disabled: true}, [
         Validators.required
       ]),
       splitEven: new FormControl(false),
       orderType: new FormControl(null, [Validators.required]),
-      attendeesList: new FormControl(''),
+      attendeesList: new FormControl('', [Validators.required]),
       attendees: new FormArray([]),
       restaurants: new FormControl('', [
         Validators.required
@@ -71,7 +79,7 @@ export class NewEventComponent implements OnInit {
     return this.formBuilder.group({
       email: [email, Validators.required],
       name: ['', Validators.required],
-      budget: ['', Validators.required],
+      budget: [null],
       foodPreference: ['', Validators.required]
     });
   }
@@ -119,7 +127,11 @@ export class NewEventComponent implements OnInit {
   createEvent() {
     this.eventsService.createEvent(this.formGroup.value)
       .subscribe(data => {
-
-      });
+        if (data.status === 201) {
+          this.toastr.success(data.message, 'Success!', { dismiss: 'controlled', showCloseButton: true, toastLife: 4000 });
+          this.router.navigate(['/manager']);
+        }
+      }
+    );
   }
 }

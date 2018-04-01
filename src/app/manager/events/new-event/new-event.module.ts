@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 
 import { NewEventRoutingModule } from './new-event-routing.module';
 import { NewEventComponent } from './new-event.component';
 
 import { EventsService } from '../events.service';
 import { ManagerService } from '../../manager.service';
-
-
 
 import { CommonInterceptor } from '../../../shared/interceptors/common.interceptor';
 import { TokenInterceptor } from '../../../shared/interceptors/token.interceptor';
@@ -26,6 +26,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     NewEventRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ToastModule,
+    NgBootstrapFormValidationModule,
     CheckboxModule,
     RadioButtonModule,
     CalendarModule,
@@ -33,7 +35,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
   ],
   declarations: [NewEventComponent],
   providers: [
-    EventsService, ManagerService,
+    EventsService,
+    ManagerService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: CommonInterceptor,
