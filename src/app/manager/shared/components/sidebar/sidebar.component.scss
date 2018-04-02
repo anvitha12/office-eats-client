@@ -1,20 +1,39 @@
+@import '~sass/_variables.scss';
+
 .sidebar {
   min-width: 200px;
   max-width: 200px;
   min-height: 100%;
   position: fixed;
-  background: #00468A;
-  color: #fff;
+  background: $brand-color;
+  color: $color-white;
   transition: all 0.3s;
   z-index: 1;
   .sidebar-header {
       padding: 20px;
-      background: #00468A;
+      background: $brand-color;
       text-align: center;
-      border-bottom: 1px solid rgba(255,255,255,.15);
+      border-bottom: 1px solid rgba(255,255,255,.2);
       .profile {
-          .image>img {
-              height: 90px;
+          .avatar {
+            width: 80px;
+            height: 80px;
+            margin: 0px auto;
+            font-size: 2.5em;
+            text-align: center;
+            line-height: 74px;
+            border-width: 3px;
+            border-style: solid;
+            background-color: $color-white;
+            vertical-align: middle;
+            text-transform: uppercase;
+            color: $brand-color-lightest;
+            border-color: $brand-color-lightest;
+            display: inline-block;
+            overflow: hidden;
+            border-radius: 50%;
+            font-weight: bold;
+            letter-spacing: -5px;
           }
           .name {
               margin-top: 10px;
@@ -22,9 +41,9 @@
           }
           .sign-out {
               a {
-                  color: #00b2d9;
+                  color: $brand-color-lightest;
                   &:hover {
-                      color: #00b2d9;
+                      color: $brand-color-lightest;
                       text-decoration: none;
                   }
               }
@@ -33,19 +52,33 @@
   }
   ul.main-menu {
       li{
-         &.active {
-              color: #fff;
-              background: rgba(0,0,0,.25);
+        position: relative;
+         &.active a{
+            color: $color-white;
+            background: #3d9ce4;
+            &::before {
+              content: '';
+              transform: translateY(-50%);
+              border-style: solid;
+              border-width: 6px 7px 6px 0;
+              border-color: transparent #FBFDFE transparent transparent;
+              position: absolute;
+              top: 50%;
+              left: 0;
+              right: 0;
+              height: 1px;
+              background-color:transparent;
+            }
          }
       }
       li>a{
           padding: 10px;
           font-size: 1.2em;
-          color: #fff;
+          color: $color-white;
           display: block;
           &:hover{
-              color: #fff;
-              background: rgba(0,0,0,.25);
+              color: $color-white;
+              background: #3d9ce4;
               text-decoration: none;
           }
       }

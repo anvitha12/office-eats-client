@@ -1,15 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400');
+@import '~sass/_variables.scss';
+
 html, body {
   height: 100%;
 }
 body {
   font-family: 'Montserrat', sans-serif;
 }
-
-/*--Colors--*/
-$brand-color: #0D83DD;
-$brand-color-light: #86c1ee;
 
 /*-- Boostrap css overwirte--*/
 a {
