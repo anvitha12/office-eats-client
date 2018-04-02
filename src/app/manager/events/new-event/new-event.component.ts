@@ -49,7 +49,7 @@ export class NewEventComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(50)
       ]),
-      budget: new FormControl({value: '', disabled: true}, [
+      budget: new FormControl({value: null, disabled: true}, [
         Validators.required
       ]),
       splitEven: new FormControl(false),
@@ -115,6 +115,10 @@ export class NewEventComponent implements OnInit {
 
   onSplitEvenChange() {
     const ctrl = this.formGroup.get('budget');
+    this.formGroup.patchValue({
+      budget: null
+    });
+    ctrl.markAsUntouched();
     this.formGroup.value.splitEven ? ctrl.enable() : ctrl.disable();
   }
 
@@ -133,5 +137,15 @@ export class NewEventComponent implements OnInit {
         }
       }
     );
+  }
+
+  isFieldValid(field: string) {
+    return !this.formGroup.get(field).valid && this.formGroup.get(field).touched;
+  }
+
+  displayFieldCss(field: string) {
+    return {
+      'has-error': this.isFieldValid(field)
+    };
   }
 }

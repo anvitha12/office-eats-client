@@ -19,47 +19,64 @@
   <div class="col-md-12">
     <form class="form-horizontal" [formGroup]="formGroup">
 
-      <div class="form-group">
+      <div class="form-group" [ngClass]="displayFieldCss('meetingTitle')">
         <label class="col-md-3 control-label" for="meetingTitle">Meeting Title</label>
         <div class="col-md-5">
-          <input id="meetingTitle" name="meetingTitle" type="text" placeholder="Meeting Title" class="form-control" formControlName='meetingTitle'>
+          <input id="meetingTitle" name="meetingTitle" type="text" placeholder="Meeting Title" class="form-control" formControlName='meetingTitle' maxlength="50">
+          <span *ngIf="formGroup.get('meetingTitle').invalid && formGroup.get('meetingTitle').touched" class="help-block">
+            <div *ngIf="formGroup.get('meetingTitle').hasError('required')">Meeting Title is required</div>
+            <div *ngIf="formGroup.get('meetingTitle').hasError('minlength')">Meeting Title must be at least 3 characters</div>
+          </span>          
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-6">
-          <div class="form-group">
+          <div class="form-group" [ngClass]="displayFieldCss('date')">
             <label class="col-md-6 control-label" for="date">Date</label>
             <div class="col-md-6">
               <p-calendar formControlName="date" placeholder="Date" [minDate]="minDateValue" styleClass="w-100-p" inputStyleClass="w-100-p"
                 [readonlyInput]="true"></p-calendar>
+                <span *ngIf="formGroup.get('date').invalid && formGroup.get('date').touched" class="help-block">
+                  <div *ngIf="formGroup.get('date').hasError('required')">Date is required</div>
+                </span>
             </div>
           </div>
         </div>
         <div class="col-md-6">
-          <div class="form-group">
+          <div class="form-group" [ngClass]="displayFieldCss('time')">
             <label class="col-md-3 control-label" for="time">Time</label>
             <div class="col-md-6">
               <p-calendar formControlName="time" placeholder="Time" [timeOnly]="true" hourFormat="12" styleClass="w-100-p" inputStyleClass="w-100-p"
                 [readonlyInput]="true"></p-calendar>
+                <span *ngIf="formGroup.get('time').invalid && formGroup.get('time').touched" class="help-block">
+                  <div *ngIf="formGroup.get('time').hasError('required')">Time is required</div>
+                </span>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group"  [ngClass]="displayFieldCss('venue')">
         <label class="col-md-3 control-label" for="venue">Venue</label>
         <div class="col-md-5">
-          <input id="venue" name="venue" type="text" placeholder="Venue" class="form-control" formControlName='venue'>
+          <input id="venue" name="venue" type="text" placeholder="Venue" class="form-control" formControlName='venue' maxlength="50">
+          <span *ngIf="formGroup.get('venue').invalid && formGroup.get('venue').touched" class="help-block">
+            <div *ngIf="formGroup.get('venue').hasError('required')">Venue is required</div>
+            <div *ngIf="formGroup.get('venue').hasError('minlength')">Venue must be at least 3 characters</div>
+          </span>
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-6">
-          <div class="form-group">
+          <div class="form-group" [ngClass]="displayFieldCss('budget')">
             <label class="col-md-6 control-label" for="budget">Budget</label>
             <div class="col-md-6">
               <input id="budget" name="budget" type="text" placeholder="Budget" class="form-control" formControlName='budget'>
+              <span *ngIf="formGroup.get('budget').invalid && formGroup.get('budget').touched" class="help-block">
+                <div *ngIf="formGroup.get('budget').hasError('required')">Budget is required</div>
+              </span>
             </div>
           </div>
         </div>
@@ -90,15 +107,18 @@
             </div>
           </div>
         </div>
+
       </div>
 
-      <div class="form-group">
+      <div class="form-group"  [ngClass]="displayFieldCss('attendeesList')">
         <label class="col-md-3 control-label" for="attendees">Attendees</label>
         <div class="col-md-5">
           <textarea rows="5" class="form-control" formControlName='attendeesList'></textarea>
           <small>Ex: sample@company.com; sample1@company.com</small>
-          <br/>
-          <button class="btn btn-default pull-right" type="button" (click)="addAttendee()">Add Attendees</button>
+          <span *ngIf="formGroup.get('attendeesList').invalid && formGroup.get('attendeesList').touched" class="help-block">
+            <div *ngIf="formGroup.get('attendeesList').hasError('required')">Attendees is required</div>            
+          </span>
+          <button class="btn btn-default pull-right mt-15" type="button" (click)="addAttendee()">Add Attendees</button>
           <div class="clearfix"></div>
         </div>
       </div>

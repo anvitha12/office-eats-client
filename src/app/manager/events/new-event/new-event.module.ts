@@ -4,7 +4,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
-import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 
 import { NewEventRoutingModule } from './new-event-routing.module';
 import { NewEventComponent } from './new-event.component';
@@ -27,7 +26,6 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     ReactiveFormsModule,
     HttpClientModule,
     ToastModule,
-    NgBootstrapFormValidationModule,
     CheckboxModule,
     RadioButtonModule,
     CalendarModule,
