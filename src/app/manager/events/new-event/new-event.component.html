@@ -85,7 +85,7 @@
             <div class="form-group pt-7">
               <label class="col-md-3 text-right" for="splitEven">Split Even</label>
               <div class="col-md-6">
-                <p-checkbox name="splitEven" formControlName='splitEven' binary="true" (click)="onSplitEvenChange()"></p-checkbox>
+                <p-checkbox name="splitEven" formControlName='splitEven' binary="true"></p-checkbox>
               </div>
             </div>
           </div>
@@ -194,9 +194,9 @@
       </div>
       <div class="row">
         <div class="col-md-12 mb-20">
-          <h4 class="mb0 mt0">Resturants</h4>
+          <h4 class="mb0 mt0">Restaurants</h4>
           <hr>
-          <p-selectButton [options]="resturantsList" (onChange)="onSelectResturant($event)" formControlName="restaurants" multiple="multiple"></p-selectButton>
+          <p-selectButton [options]="restaurantsList" (onChange)="onSelectResturant($event)" formControlName="restaurants" multiple="multiple"></p-selectButton>
         </div>
       </div>
       <!-- Form actions -->

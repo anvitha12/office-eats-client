@@ -17,7 +17,7 @@ export class NewEventComponent implements OnInit {
 
   formGroup: FormGroup;
   restaurants: Resturant[];
-  resturantsList: SelectItem[];
+  restaurantsList: SelectItem[];
   minDateValue: Date;
 
   constructor(
@@ -31,7 +31,7 @@ export class NewEventComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('New Event | Office Eats');
     this.minDateValue = new Date();
-    this.resturantsList = [];
+    this.restaurantsList = [];
     this.formGroup = new FormGroup({
       meetingTitle: new FormControl('', [
         Validators.required,
@@ -65,7 +65,7 @@ export class NewEventComponent implements OnInit {
       if (data.status === 200) {
         this.restaurants = data.restaurants_details;
         for (let i = 0; i < this.restaurants.length; i++) {
-          this.resturantsList.push({label: this.restaurants[i].restaurant_name, value: this.restaurants[i].restaurant_id});
+          this.restaurantsList.push({label: this.restaurants[i].restaurant_name, value: this.restaurants[i].restaurant_id});
         }
       }
     });
@@ -111,15 +111,6 @@ export class NewEventComponent implements OnInit {
     const control = <FormArray>this.formGroup.controls['attendees'];
     // remove the chosen row
     control.removeAt(index);
-  }
-
-  onSplitEvenChange() {
-    const ctrl = this.formGroup.get('budget');
-    this.formGroup.patchValue({
-      budget: null
-    });
-    ctrl.markAsUntouched();
-    this.formGroup.value.splitEven ? ctrl.enable() : ctrl.disable();
   }
 
   onSelectResturant(event) {
