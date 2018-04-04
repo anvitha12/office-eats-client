@@ -57,7 +57,10 @@ hr {
 .d-block {
     display: block;
 }
-
+/*-- Table  --*/
+.align-middle td, td.align-middle {
+    vertical-align: middle!important;
+}
 /*--NG Prime--*/
 body .ui-radiobutton .ui-radiobutton-box .ui-radiobutton-icon{
   top: 0;

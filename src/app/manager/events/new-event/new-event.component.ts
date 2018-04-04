@@ -77,7 +77,7 @@ export class NewEventComponent implements OnInit {
 
   createAttende(email): FormGroup {
     return this.formBuilder.group({
-      email: [email, Validators.required],
+      email: [email, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       name: ['', Validators.required],
       budget: [null],
       foodPreference: ['', Validators.required]
@@ -129,7 +129,8 @@ export class NewEventComponent implements OnInit {
   }
 
   createEvent() {
-    this.eventsService.createEvent(this.formGroup.value)
+    if (this.formGroup.valid) {
+      this.eventsService.createEvent(this.formGroup.value)
       .subscribe(data => {
         if (data.status === 201) {
           this.toastr.success(data.message, 'Success!', { dismiss: 'controlled', showCloseButton: true, toastLife: 4000 });
@@ -137,6 +138,7 @@ export class NewEventComponent implements OnInit {
         }
       }
     );
+    }
   }
 
   isFieldValid(field: string) {
@@ -146,6 +148,17 @@ export class NewEventComponent implements OnInit {
   displayFieldCss(field: string) {
     return {
       'has-error': this.isFieldValid(field)
+    };
+  }
+
+  isDynmaicFieldValid(field: string, i: number) {
+    return !this.formGroup.get('attendees').get(i.toString()).get(field).valid
+    && this.formGroup.get('attendees').get(i.toString()).get(field).touched;
+  }
+
+  displayDynamicFieldCss(field: string, i: number) {
+    return {
+      'has-error': this.isDynmaicFieldValid(field, i)
     };
   }
 }
