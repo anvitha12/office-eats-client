@@ -4,6 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import { NgxCarouselModule } from 'ngx-carousel';
+import 'hammerjs';
 
 import { NewEventRoutingModule } from './new-event-routing.module';
 import { NewEventComponent } from './new-event.component';
@@ -25,6 +27,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     NewEventRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxCarouselModule,
     ToastModule,
     CheckboxModule,
     RadioButtonModule,

@@ -208,3 +208,14 @@
     </form>
   </div>
 </div>
+
+<ngx-carousel
+[inputs]="carouselTile">
+
+      <ngx-tile NgxCarouselItem *ngFor="let restaurant of restaurants">
+          <h1>{{restaurant.restaurant_name}}</h1>
+      </ngx-tile>
+
+    <button NgxCarouselPrev class='leftRs'>&lt;</button>
+    <button NgxCarouselNext class='rightRs'>&gt;</button>
+</ngx-carousel>

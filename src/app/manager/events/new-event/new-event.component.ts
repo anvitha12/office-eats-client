@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { FormControl, FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { NgxCarousel } from 'ngx-carousel';
 import { EventsService } from '../events.service';
 import { ManagerService } from '../../manager.service';
 import { Resturant } from '../../models/resturant';
@@ -19,6 +20,7 @@ export class NewEventComponent implements OnInit {
   restaurants: Resturant[];
   restaurantsList: SelectItem[];
   minDateValue: Date;
+  public carouselTile: NgxCarousel;
 
   constructor(
     private router: Router,
@@ -30,8 +32,24 @@ export class NewEventComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('New Event | Office Eats');
+
     this.minDateValue = new Date();
     this.restaurantsList = [];
+    this.restaurants = [];
+
+    this.carouselTile = {
+      grid: {xs: 2, sm: 3, md: 3, lg: 4, all: 0},
+      slide: 2,
+      speed: 400,
+      animation: 'lazy',
+      point: {
+        visible: true
+      },
+      load: 2,
+      touch: true,
+      easing: 'ease'
+    };
+
     this.formGroup = new FormGroup({
       meetingTitle: new FormControl('', [
         Validators.required,
