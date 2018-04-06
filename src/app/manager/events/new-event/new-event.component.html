@@ -194,12 +194,43 @@
       </div>
       <div class="row">
         <div class="col-md-12 mb-20">
-          <h4 class="mb0 mt0">Restaurants</h4>
+          <h4 class="mb0 mt0">Restaurants
+            <small>(Select atleast 1 restaurant and maximum of 3 restaurants.)</small>
+          </h4>
           <hr>
-          <p-selectButton [options]="restaurantsList" (onChange)="onSelectResturant($event)" formControlName="restaurants" multiple="multiple"></p-selectButton>
+          <ngx-carousel [inputs]="carouselTile">
+            <ngx-tile NgxCarouselItem *ngFor="let restaurant of restaurants; let i = index;">
+              <div class="card">
+                <div class="image">
+                  <img src="https://res.cloudinary.com/grubhub/image/upload/w_264,h_178,f_auto,q_auto,dpr_auto,g_auto,c_fill,e_improve/jrustzqv7q05qkj9gdaa"
+                    class="img-responsive">
+                  <div class="checkbox-fixed">
+                    <input type="checkbox" (change)="onChange(restaurant.restaurant_id, $event.target.checked)">
+                  </div>
+                </div>
+                <div class="card-body">
+                  <h5 class="mt-0">{{restaurant.restaurant_name}}</h5>
+                  <div class="rating">
+                    <span class="fa fa-star text-orange"></span>
+                    <span class="fa fa-star text-orange"></span>
+                    <span class="fa fa-star text-orange"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                  </div>
+                  <small class="text-muted">Asian</small>
+                </div>
+              </div>
+            </ngx-tile>
+            <button NgxCarouselPrev class='leftRs btn btn-primary'>
+              <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </button>
+            <button NgxCarouselNext class='rightRs btn btn-primary'>
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </button>
+          </ngx-carousel>
         </div>
       </div>
-      <!-- Form actions -->
+      <!-- Form actions restaurants -->
       <div class="form-group">
         <div class="col-md-12 text-right">
           <button type="submit" class="btn btn-primary" [disabled]="!formGroup.valid" (click)="createEvent()">Save</button>
@@ -208,14 +239,3 @@
     </form>
   </div>
 </div>
-
-<ngx-carousel
-[inputs]="carouselTile">
-
-      <ngx-tile NgxCarouselItem *ngFor="let restaurant of restaurants">
-          <h1>{{restaurant.restaurant_name}}</h1>
-      </ngx-tile>
-
-    <button NgxCarouselPrev class='leftRs'>&lt;</button>
-    <button NgxCarouselNext class='rightRs'>&gt;</button>
-</ngx-carousel>

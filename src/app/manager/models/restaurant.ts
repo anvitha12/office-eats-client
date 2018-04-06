@@ -1,11 +1,11 @@
-export class Resturant {
+export class Restaurant {
     restaurant_id: number;
     restaurant_name: string;
     isSelected: boolean;
 }
 
-export class GetResturantsResponse {
+export class GetRestaurantsResponse {
     status: number;
     message: string;
-    restaurants_details: Resturant[];
+    restaurants_details: Restaurant[];
 }
