@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { FormControl, FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { NgxCarousel } from 'ngx-carousel';
 import { EventsService } from '../events.service';
 import { ManagerService } from '../../manager.service';
-import { Resturant } from '../../models/resturant';
+import { Restaurant } from '../../models/restaurant';
 import { SelectItem } from 'primeng/api';
 
 @Component({
@@ -16,9 +17,9 @@ import { SelectItem } from 'primeng/api';
 export class NewEventComponent implements OnInit {
 
   formGroup: FormGroup;
-  restaurants: Resturant[];
-  restaurantsList: SelectItem[];
+  restaurants: Restaurant[];
   minDateValue: Date;
+  public carouselTile: NgxCarousel;
 
   constructor(
     private router: Router,
@@ -30,8 +31,23 @@ export class NewEventComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('New Event | Office Eats');
+
     this.minDateValue = new Date();
-    this.restaurantsList = [];
+    this.restaurants = [];
+
+    this.carouselTile = {
+      grid: {xs: 2, sm: 3, md: 3, lg: 4, all: 0},
+      slide: 2,
+      speed: 400,
+      animation: 'lazy',
+      point: {
+        visible: false
+      },
+      load: 2,
+      touch: true,
+      easing: 'ease'
+    };
+
     this.formGroup = new FormGroup({
       meetingTitle: new FormControl('', [
         Validators.required,
@@ -49,24 +65,19 @@ export class NewEventComponent implements OnInit {
         Validators.minLength(3),
         Validators.maxLength(50)
       ]),
-      budget: new FormControl({value: null, disabled: true}, [
+      budget: new FormControl('', [
         Validators.required
       ]),
       splitEven: new FormControl(false),
       orderType: new FormControl(null, [Validators.required]),
       attendeesList: new FormControl('', [Validators.required]),
       attendees: new FormArray([]),
-      restaurants: new FormControl('', [
-        Validators.required
-      ])
+      selectedRestaurants: this.formBuilder.array([], Validators.required)
     });
 
     this.managerService.getManagerCorporateResturants().subscribe(data => {
       if (data.status === 200) {
         this.restaurants = data.restaurants_details;
-        for (let i = 0; i < this.restaurants.length; i++) {
-          this.restaurantsList.push({label: this.restaurants[i].restaurant_name, value: this.restaurants[i].restaurant_id});
-        }
       }
     });
   }
@@ -113,9 +124,13 @@ export class NewEventComponent implements OnInit {
     control.removeAt(index);
   }
 
-  onSelectResturant(event) {
-    if (event.value.length > 3) {
-      event.value.splice(0, 1);
+  onChange(restaurant_id: number, isChecked: boolean) {
+    const selectedRestaurantsFormArray = <FormArray>this.formGroup.controls.selectedRestaurants;
+    if (isChecked) {
+      selectedRestaurantsFormArray.push(new FormControl(restaurant_id));
+    } else {
+      const index = selectedRestaurantsFormArray.controls.findIndex(x => x.value === restaurant_id);
+      selectedRestaurantsFormArray.removeAt(index);
     }
   }
 

@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { Manager, ManagerDetails } from '../manager/models/manager';
-import { GetResturantsResponse } from '../manager/models/resturant';
+import { GetRestaurantsResponse } from '../manager/models/restaurant';
 import { baseURL } from '../shared/constants/base-url';
 import { UserService } from '../shared/services/user.service';
 
@@ -54,7 +54,7 @@ export class ManagerService {
       .set('Corporate-ID', this.storage.retrieve('corporate_id'));
 
     return this.httpClient
-      .get <GetResturantsResponse>(
+      .get <GetRestaurantsResponse>(
         this.getManagerCorporateResturantsUrl,
         {
           headers: headers
