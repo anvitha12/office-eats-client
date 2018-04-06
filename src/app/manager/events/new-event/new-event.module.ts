@@ -37,7 +37,6 @@ import { SelectButtonModule } from 'primeng/selectbutton';
   declarations: [NewEventComponent],
   providers: [
     EventsService,
-    ManagerService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: CommonInterceptor,

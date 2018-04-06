@@ -7,7 +7,6 @@ import { NgxCarousel } from 'ngx-carousel';
 import { EventsService } from '../events.service';
 import { ManagerService } from '../../manager.service';
 import { Restaurant } from '../../models/restaurant';
-import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-new-event',
@@ -18,8 +17,10 @@ export class NewEventComponent implements OnInit {
 
   formGroup: FormGroup;
   restaurants: Restaurant[];
+  selectedRestaurants: Restaurant[];
   minDateValue: Date;
   public carouselTile: NgxCarousel;
+  managerEmail: string;
 
   constructor(
     private router: Router,
@@ -34,6 +35,8 @@ export class NewEventComponent implements OnInit {
 
     this.minDateValue = new Date();
     this.restaurants = [];
+    this.selectedRestaurants = [];
+    this.managerEmail = this.managerService.manager.u_email;
 
     this.carouselTile = {
       grid: {xs: 2, sm: 3, md: 3, lg: 4, all: 0},
@@ -69,9 +72,9 @@ export class NewEventComponent implements OnInit {
         Validators.required
       ]),
       splitEven: new FormControl(false),
-      orderType: new FormControl(null, [Validators.required]),
+      orderType: new FormControl('', [Validators.required]),
       attendeesList: new FormControl('', [Validators.required]),
-      attendees: new FormArray([]),
+      attendees: new FormArray([this.createAttende(this.managerEmail)]),
       selectedRestaurants: this.formBuilder.array([], Validators.required)
     });
 
@@ -124,14 +127,32 @@ export class NewEventComponent implements OnInit {
     control.removeAt(index);
   }
 
-  onChange(restaurant_id: number, isChecked: boolean) {
+  onRestaurantSelect(restaurant: Restaurant) {
+    restaurant.checked = !restaurant.checked;
     const selectedRestaurantsFormArray = <FormArray>this.formGroup.controls.selectedRestaurants;
-    if (isChecked) {
-      selectedRestaurantsFormArray.push(new FormControl(restaurant_id));
+    const index = selectedRestaurantsFormArray.controls.findIndex(x => x.value === restaurant.restaurant_id);
+    if (restaurant.checked) {
+      if (selectedRestaurantsFormArray.length >= 3)  {
+        selectedRestaurantsFormArray.removeAt(0);
+        this.selectedRestaurants.splice(0, 1);
+        this.restaurants[0].checked = false;
+      }
+      selectedRestaurantsFormArray.push(new FormControl(restaurant.restaurant_id));
+      this.selectedRestaurants.push(restaurant);
     } else {
-      const index = selectedRestaurantsFormArray.controls.findIndex(x => x.value === restaurant_id);
       selectedRestaurantsFormArray.removeAt(index);
+      this.selectedRestaurants.splice(index, 1);
+      restaurant.checked = false;
     }
+  }
+
+  removeSelectedRestaurant(restaurant: Restaurant, index: number) {
+    this.selectedRestaurants.splice(index, 1);
+    const selectedRestaurantsFormArray = <FormArray>this.formGroup.controls.selectedRestaurants;
+    const i = selectedRestaurantsFormArray.controls.findIndex(x => x.value === restaurant.restaurant_id);
+    const i1 = this.restaurants.findIndex(x => x.restaurant_id === restaurant.restaurant_id);
+    this.restaurants[i1].checked = false;
+    selectedRestaurantsFormArray.removeAt(i);
   }
 
   createEvent() {

@@ -1,7 +1,7 @@
 export class Restaurant {
     restaurant_id: number;
     restaurant_name: string;
-    isSelected: boolean;
+    checked: boolean;
 }
 
 export class GetRestaurantsResponse {

@@ -22,7 +22,7 @@ export class ManagerComponent implements OnInit {
 
   ngOnInit() {
     this.isSidebarOpen = false;
-    this.managerDetails = this.managerService._getManagerDetails();
+    this.managerDetails = this.managerService.manager;
   }
 
   toggleSidebar() {

@@ -12,7 +12,7 @@ export class ManagerGuard implements CanActivate {
   canActivate() {
       return this.managerService.getManagerDetails().map((data) => {
         if (data.status === 200) {
-          this.managerService._setManagerDetails(data.user_details);
+          this.managerService.manager = data.user_details;
           return true;
         }
       });

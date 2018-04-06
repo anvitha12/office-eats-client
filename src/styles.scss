@@ -42,6 +42,9 @@ hr {
 .mb-20 {
     margin-bottom: 20px;
 }
+.mr-5 {
+    margin-right: 5px;
+}
 
 /*--paddings--*/
 .pt-7 {
@@ -51,6 +54,9 @@ hr {
 /*--text-colors--*/
 .text-brand {
     color: $brand-color;
+}
+.text-brand-light {
+    color: $brand-color-light;
 }
 .text-orange {
     color: $color-orange;
@@ -63,6 +69,35 @@ hr {
 /*-- Table  --*/
 .align-middle td, td.align-middle {
     vertical-align: middle!important;
+}
+
+/*--Chip--*/
+.chip {
+    display: inline-block;
+    padding: 0 25px;
+    height: 50px;
+    font-size: 18px;
+    line-height: 50px;
+    border-radius: 25px;
+    background-color: #f1f1f1;
+}
+.chip img {
+    float: left;
+    margin: 0 10px 0 -25px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+.closebtn {
+    padding-left: 10px;
+    color: #888;
+    font-weight: bold;
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+}
+.closebtn:hover {
+    color: #000;
 }
 
 /*--card--*/

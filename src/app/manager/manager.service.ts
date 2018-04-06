@@ -10,28 +10,23 @@ import { GetRestaurantsResponse } from '../manager/models/restaurant';
 import { baseURL } from '../shared/constants/base-url';
 import { UserService } from '../shared/services/user.service';
 
-import { StorageService } from '../shared/services/storage.service';
-
 @Injectable()
 export class ManagerService {
 
-  public managerDetails: ManagerDetails;
-  private storage: StorageService;
+  private managerDetails: ManagerDetails;
 
   constructor(private httpClient: HttpClient,
-    private userService: UserService,
-    private storageService: StorageService) {
-      this.storage = storageService;
+    private userService: UserService) {
   }
 
   private getManagerDetailsUrl = baseURL + 'Users/detail/';
   private getManagerCorporateResturantsUrl = baseURL + 'CreateEvents/restaurants_info';
 
-  public _setManagerDetails(managerDetails: ManagerDetails) {
-    this.managerDetails = managerDetails;
+  set manager(manager: ManagerDetails) {
+    this.managerDetails = manager;
   }
 
-  public _getManagerDetails() {
+  get manager() {
     return this.managerDetails;
   }
 
@@ -41,9 +36,6 @@ export class ManagerService {
         this.getManagerDetailsUrl + this.userService.getToken().id
       )
       .map(res => {
-        if (res.user_details.corporate_id) {
-          this.storage.store('corporate_id', res.user_details.corporate_id);
-        }
         return res;
       }).catch(error => this.handleError(error));
   }
@@ -51,7 +43,7 @@ export class ManagerService {
   getManagerCorporateResturants() {
     let headers = new HttpHeaders();
     headers = headers
-      .set('Corporate-ID', this.storage.retrieve('corporate_id'));
+      .set('Corporate-ID', this.manager.corporate_id.toString());
 
     return this.httpClient
       .get <GetRestaurantsResponse>(

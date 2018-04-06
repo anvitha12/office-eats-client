@@ -20,7 +20,7 @@
       <div class="form-horizontal">
 
         <div class="form-group" [ngClass]="displayFieldCss('meetingTitle')">
-          <label class="col-md-3 control-label" for="meetingTitle">Meeting Title</label>
+          <label class="col-md-3 control-label" for="meetingTitle">Meeting Title*</label>
           <div class="col-md-5">
             <input id="meetingTitle" name="meetingTitle" type="text" placeholder="Meeting Title" class="form-control" formControlName='meetingTitle'
               maxlength="50">
@@ -30,36 +30,29 @@
             </span>
           </div>
         </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group" [ngClass]="displayFieldCss('date')">
-              <label class="col-md-6 control-label" for="date">Date</label>
-              <div class="col-md-6">
-                <p-calendar formControlName="date" placeholder="Date" [minDate]="minDateValue" styleClass="w-100-p" inputStyleClass="w-100-p"
-                  [readonlyInput]="true"></p-calendar>
-                <span *ngIf="formGroup.get('date').invalid && formGroup.get('date').touched" class="help-block">
-                  <div *ngIf="formGroup.get('date').hasError('required')">Date is required</div>
-                </span>
-              </div>
-            </div>
+        <div class="form-group" [ngClass]="displayFieldCss('date')">
+          <label class="col-md-3 control-label" for="date">Date*</label>
+          <div class="col-md-5">
+            <p-calendar formControlName="date" placeholder="Date" [minDate]="minDateValue" styleClass="w-100-p" inputStyleClass="w-100-p"
+              [readonlyInput]="true"></p-calendar>
+            <span *ngIf="formGroup.get('date').invalid && formGroup.get('date').touched" class="help-block">
+              <div *ngIf="formGroup.get('date').hasError('required')">Date is required</div>
+            </span>
           </div>
-          <div class="col-md-6">
-            <div class="form-group" [ngClass]="displayFieldCss('time')">
-              <label class="col-md-3 control-label" for="time">Time</label>
-              <div class="col-md-6">
-                <p-calendar formControlName="time" placeholder="Time" [timeOnly]="true" hourFormat="12" styleClass="w-100-p" inputStyleClass="w-100-p"
-                  [readonlyInput]="true"></p-calendar>
-                <span *ngIf="formGroup.get('time').invalid && formGroup.get('time').touched" class="help-block">
-                  <div *ngIf="formGroup.get('time').hasError('required')">Time is required</div>
-                </span>
-              </div>
-            </div>
+        </div>
+        <div class="form-group" [ngClass]="displayFieldCss('time')">
+          <label class="col-md-3 control-label" for="time">Time*</label>
+          <div class="col-md-5">
+            <p-calendar formControlName="time" placeholder="Time" [timeOnly]="true" hourFormat="12" styleClass="w-100-p" inputStyleClass="w-100-p"
+              [readonlyInput]="true"></p-calendar>
+            <span *ngIf="formGroup.get('time').invalid && formGroup.get('time').touched" class="help-block">
+              <div *ngIf="formGroup.get('time').hasError('required')">Time is required</div>
+            </span>
           </div>
         </div>
 
         <div class="form-group" [ngClass]="displayFieldCss('venue')">
-          <label class="col-md-3 control-label" for="venue">Venue</label>
+          <label class="col-md-3 control-label" for="venue">Venue*</label>
           <div class="col-md-5">
             <input id="venue" name="venue" type="text" placeholder="Venue" class="form-control" formControlName='venue' maxlength="50">
             <span *ngIf="formGroup.get('venue').invalid && formGroup.get('venue').touched" class="help-block">
@@ -68,49 +61,34 @@
             </span>
           </div>
         </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group" [ngClass]="displayFieldCss('budget')">
-              <label class="col-md-6 control-label" for="budget">Budget</label>
-              <div class="col-md-6">
-                <input id="budget" name="budget" type="text" placeholder="Budget" class="form-control" formControlName='budget'>
-                <span *ngIf="formGroup.get('budget').invalid && formGroup.get('budget').touched" class="help-block">
-                  <div *ngIf="formGroup.get('budget').hasError('required')">Budget is required</div>
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group pt-7">
-              <label class="col-md-3 text-right" for="splitEven">Split Even</label>
-              <div class="col-md-6">
-                <p-checkbox name="splitEven" formControlName='splitEven' binary="true"></p-checkbox>
-              </div>
-            </div>
+        <div class="form-group" [ngClass]="displayFieldCss('budget')">
+          <label class="col-md-3 control-label" for="budget">Budget*</label>
+          <div class="col-md-5">
+            <input id="budget" name="budget" type="text" placeholder="Budget" class="form-control" formControlName='budget'>
+            <span *ngIf="formGroup.get('budget').invalid && formGroup.get('budget').touched" class="help-block">
+              <div *ngIf="formGroup.get('budget').hasError('required')">Budget is required</div>
+            </span>
           </div>
         </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="col-md-6 text-right" for="individualOrder">Individual Order</label>
-              <div class="col-md-6">
-                <p-radioButton name="orderType" formControlName="orderType" [value]="0"></p-radioButton>
-              </div>
-            </div>
+        <div class="form-group">
+          <label class="col-md-3 text-right" for="splitEven">Split Even</label>
+          <div class="col-md-5">
+            <p-checkbox name="splitEven" formControlName='splitEven' binary="true"></p-checkbox>
           </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="col-md-3 text-right" for="catering">Catering</label>
-              <div class="col-md-6">
-                <p-radioButton name="orderType" formControlName="orderType" [value]="1"></p-radioButton>
-              </div>
-            </div>
-          </div>
-
         </div>
-
+        <div class="form-group" [ngClass]="displayFieldCss('orderType')">
+          <label class="col-md-3 text-right" for="orderType">Order Type*</label>
+          <div class="col-md-5">
+            <select class="form-control" formControlName="orderType" name="orderType" id="orderType">
+              <option value="">Select Order Type</option>
+              <option value="0">Individual Order</option>
+              <option value="1">Catering</option>
+            </select>
+            <span *ngIf="formGroup.get('orderType').invalid && formGroup.get('orderType').touched" class="help-block">
+              <div *ngIf="formGroup.get('orderType').hasError('required')">Budget is required</div>
+            </span>
+          </div>
+        </div>
         <div class="form-group" [ngClass]="displayFieldCss('attendeesList')">
           <label class="col-md-3 control-label" for="attendees">Attendees</label>
           <div class="col-md-5">
@@ -133,7 +111,7 @@
               <th>Name</th>
               <th>Food Preference</th>
               <th>Budget</th>
-              <th>Remaind</th>
+              <th>Remind</th>
               <th>Order</th>
               <th>Delete</th>
             </tr>
@@ -198,14 +176,22 @@
             <small>(Select atleast 1 restaurant and maximum of 3 restaurants.)</small>
           </h4>
           <hr>
+          <div class="row">
+            <div class="col-md-12 mb-15">
+              <div class="chip" *ngFor="let restaurant of selectedRestaurants;  let i = index;">
+                <img src="https://res.cloudinary.com/grubhub/image/upload/w_264,h_178,f_auto,q_auto,dpr_auto,g_auto,c_fill,e_improve/jrustzqv7q05qkj9gdaa" alt="Person" width="96" height="96"> {{restaurant.restaurant_name}}
+                <span class="closebtn" (click)="removeSelectedRestaurant(restaurant, i)">&times;</span>
+              </div>
+            </div>
+          </div>
           <ngx-carousel [inputs]="carouselTile">
             <ngx-tile NgxCarouselItem *ngFor="let restaurant of restaurants; let i = index;">
               <div class="card">
                 <div class="image">
                   <img src="https://res.cloudinary.com/grubhub/image/upload/w_264,h_178,f_auto,q_auto,dpr_auto,g_auto,c_fill,e_improve/jrustzqv7q05qkj9gdaa"
-                    class="img-responsive">
+                    class="img-responsive w-100-p" alt="{{restaurant.restaurant_name}}">
                   <div class="checkbox-fixed">
-                    <input type="checkbox" (change)="onChange(restaurant.restaurant_id, $event.target.checked)">
+                    <input type="checkbox" [checked]="restaurant.checked" (change)="onRestaurantSelect(restaurant)">
                   </div>
                 </div>
                 <div class="card-body">
