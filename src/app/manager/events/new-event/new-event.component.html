@@ -64,7 +64,7 @@
         <div class="form-group" [ngClass]="displayFieldCss('budget')">
           <label class="col-md-3 control-label" for="budget">Budget*</label>
           <div class="col-md-5">
-            <input id="budget" name="budget" type="text" placeholder="Budget" class="form-control" formControlName='budget'>
+            <input id="budget" name="budget" currencyMask [options]="{align: 'left'}" type="text" placeholder="Budget" class="form-control" formControlName='budget'>
             <span *ngIf="formGroup.get('budget').invalid && formGroup.get('budget').touched" class="help-block">
               <div *ngIf="formGroup.get('budget').hasError('required')">Budget is required</div>
             </span>
@@ -151,7 +151,7 @@
               </td>
               <td>
                 <div class="form-group mb-0">
-                  <input type="text" class="form-control" placeholder="Budget" formControlName='budget'>
+                  <input type="text" class="form-control" currencyMask [options]="{align: 'left'}" placeholder="Budget" formControlName='budget'>
                 </div>
               </td>
               <td>

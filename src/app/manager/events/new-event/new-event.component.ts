@@ -93,7 +93,7 @@ export class NewEventComponent implements OnInit {
     return this.formBuilder.group({
       email: [email, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       name: ['', Validators.required],
-      budget: [null],
+      budget: [''],
       foodPreference: ['', Validators.required]
     });
   }
