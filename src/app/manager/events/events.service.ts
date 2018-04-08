@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 
 import { baseURL } from '../../shared/constants/base-url';
 import { CommonResponse } from '../../shared/models/user';
-import { Event } from './models/event';
+import { Event, EventListResponse } from './models/event';
 
 @Injectable()
 export class EventsService {
@@ -12,12 +12,23 @@ export class EventsService {
   }
 
   private createEventUrl =  baseURL + 'events/create';
+  private getEventsUrl = baseURL + 'Events/ViewEvents';
 
   createEvent(event: Event) {
     return this.httpClient
       .post<CommonResponse>(
         this.createEventUrl,
         event
+      )
+      .map(res => {
+        return res;
+      });
+  }
+
+  getEvents() {
+    return this.httpClient
+      .get<EventListResponse>(
+        this.getEventsUrl
       )
       .map(res => {
         return res;

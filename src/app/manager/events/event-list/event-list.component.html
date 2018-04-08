@@ -14,3 +14,40 @@
     </div>
   </div>
   <hr>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Venue</th>
+              <th>Budget</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Created Date</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let event of events; let i = index;">
+              <td>{{event.event_title}}</td>
+              <td>{{event.event_venue_location}}</td>
+              <td>{{event.event_budget}}</td>
+              <td>{{event.event_date | date:'mediumDate'}}</td>
+              <td>{{event.event_time}}</td>
+              <td>{{event.event_created_at | date: 'medium'}}</td>
+              <td>
+                <button class="btn btn-warning btn-xs" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                <button class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+              </td>
+            </tr>
+            <tr *ngIf="isNoEvents">
+              <td colspan="7" class="text-center">No Events to show.</td>
+            </tr>
+          </tbody>  
+        </table>        
+      </div>
+    </div>
+  </div>

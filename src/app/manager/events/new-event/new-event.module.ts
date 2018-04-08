@@ -12,7 +12,6 @@ import { NewEventRoutingModule } from './new-event-routing.module';
 import { NewEventComponent } from './new-event.component';
 
 import { EventsService } from '../events.service';
-import { ManagerService } from '../../manager.service';
 
 import { CommonInterceptor } from '../../../shared/interceptors/common.interceptor';
 import { TokenInterceptor } from '../../../shared/interceptors/token.interceptor';
