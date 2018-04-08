@@ -73,7 +73,7 @@ export class NewEventComponent implements OnInit {
       ]),
       splitEven: new FormControl(false),
       orderType: new FormControl('', [Validators.required]),
-      attendeesList: new FormControl('', [Validators.required]),
+      attendeesList: new FormControl(this.managerEmail, [Validators.required]),
       attendees: new FormArray([this.createAttende(this.managerEmail)]),
       selectedRestaurants: this.formBuilder.array([], Validators.required)
     });
