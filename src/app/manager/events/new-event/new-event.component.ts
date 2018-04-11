@@ -161,7 +161,7 @@ export class NewEventComponent implements OnInit {
       .subscribe(data => {
         if (data.status === 201) {
           this.toastr.success(data.message, 'Success!', { dismiss: 'controlled', showCloseButton: true, toastLife: 4000 });
-          this.router.navigate(['/manager']);
+          this.router.navigate(['/manager/events']);
         }
       }
     );
