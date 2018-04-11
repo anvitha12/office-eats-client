@@ -40,7 +40,7 @@
               <td>{{event.event_created_at | date: 'medium'}}</td>
               <td>
                 <button class="btn btn-warning btn-xs" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-                <button class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                <button class="btn btn-danger btn-xs"(click)="removeEvent(event)" title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
               </td>
             </tr>
             <tr *ngIf="isNoEvents">
@@ -51,3 +51,5 @@
       </div>
     </div>
   </div>
+
+  <p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>

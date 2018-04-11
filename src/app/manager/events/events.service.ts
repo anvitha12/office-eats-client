@@ -13,6 +13,7 @@ export class EventsService {
 
   private createEventUrl =  baseURL + 'events/create';
   private getEventsUrl = baseURL + 'Events/ViewEvents';
+  private deleteEventUrl = baseURL + 'Events/DeleteEvents';
 
   createEvent(event: Event) {
     return this.httpClient
@@ -33,5 +34,21 @@ export class EventsService {
       .map(res => {
         return res;
       });
+  }
+
+  deleteEvent(eventId: number) {
+    let headers = new HttpHeaders();
+    headers = headers
+      .set('Event-ID', eventId.toString());
+    return this.httpClient
+    .get<CommonResponse>(
+      this.deleteEventUrl,
+      {
+        headers: headers
+      },
+    )
+    .map(res => {
+      return res;
+    });
   }
 }
