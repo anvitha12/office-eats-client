@@ -1,6 +1,11 @@
 /*--Colors--*/
-$brand-color: #0D83DD;
-$brand-color-light: #86c1ee;
-$brand-color-lightest: #91c7c9;
+$brand-color: #E22122;
+$brand-color-light: lighten($brand-color, 15%);
+$brand-color-lightest: lighten($brand-color, 35%);
+$brand-color-dark: darken($brand-color, 5%);
 $color-white: #fff;
 $color-orange: orange;
+
+$btn-brand-color: $color-white;
+$btn-brand-bg: $brand-color;
+$btn-brand-border: darken($brand-color, 5%);

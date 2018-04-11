@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400');
 @import '~sass/_variables.scss';
+@import '~sass/mixins/_buttons.scss';
 
 html, body {
   height: 100%;
@@ -10,13 +11,7 @@ body {
 }
 
 /*-- Boostrap css overwirte--*/
-a {
-    color: $brand-color;
-    &:hover, &:focus{
-        color: $brand-color-light;
-        text-decoration: none;
-    }
-}
+
 hr {
     border-color: #ccc;
 }
@@ -55,9 +50,7 @@ hr {
 .text-brand {
     color: $brand-color;
 }
-.text-brand-light {
-    color: $brand-color-light;
-}
+
 .text-orange {
     color: $color-orange;
 }
@@ -162,4 +155,9 @@ hr {
 /*--NG Prime--*/
 body .ui-radiobutton .ui-radiobutton-box .ui-radiobutton-icon{
   top: 0;
+}
+
+/*-- Button Css --*/
+.btn-brand {
+    @include button-variant($btn-brand-color, $btn-brand-bg, $btn-brand-border);
 }

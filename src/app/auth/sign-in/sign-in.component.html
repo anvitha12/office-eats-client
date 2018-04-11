@@ -1,5 +1,5 @@
 <form [formGroup]="signInForm" (validSubmit)="onSubmit()">
-  <h3 class="mt-0 mb-20 text-brand text-center">Sign In to Your Account</h3>
+  <h3 class="mt-0 mb-20 text-center">Sign In to Your Account</h3>
 
   <div class="form-group form-group-lg">
     <label for="email" class="control-label sr-only">Email</label>
@@ -10,7 +10,7 @@
     <input type="password" class="form-control" name="password" id="password" formControlName="password" placeholder="Password">
   </div>
   <div class="form-group">
-    <button class="btn btn-primary btn-lg btn-block" type="submit">Sign In</button>
+    <button class="btn btn-brand btn-lg btn-block" type="submit">Sign In</button>
   </div>
   <a routerLink='/auth/forgot-password' class="d-block text-center mb-20">Forgot Your Password?</a>
   <p class="text-center mb-0">

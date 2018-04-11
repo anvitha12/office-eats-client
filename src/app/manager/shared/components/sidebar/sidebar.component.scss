@@ -55,7 +55,7 @@
         position: relative;
          &.active a{
             color: $color-white;
-            background: #3d9ce4;
+            background: $brand-color-dark;
             &::before {
               content: '';
               transform: translateY(-50%);
@@ -78,7 +78,7 @@
           display: block;
           &:hover{
               color: $color-white;
-              background: #3d9ce4;
+              background: $brand-color-dark;
               text-decoration: none;
           }
       }
