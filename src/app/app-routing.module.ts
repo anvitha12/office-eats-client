@@ -4,7 +4,8 @@ import { AuthorizeGuard } from './shared/guards/authorize.guard';
 
 const routes: Routes = [
   {
-    path: '', pathMatch: 'full', redirectTo: 'auth'
+    path: '',
+    loadChildren: './pages/pages.module#PagesModule'
   },
   {
     path: 'auth',

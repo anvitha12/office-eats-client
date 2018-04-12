@@ -1,0 +1,20 @@
+@import '~sass/_variables.scss';
+
+.navbar-top {
+    border: 0;
+    border-radius: 0;
+    background-color: transparent;
+    margin-bottom: 0;
+    .navbar-brand {
+        height: auto;
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar-top {
+        .navbar-nav>li>a {
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+    }
+}

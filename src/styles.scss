@@ -28,11 +28,11 @@ hr {
 .mt-15 {
     margin-top: 15px;
 }
-.mb-0 {
-    margin-bottom: 0;
-}
 .mb-15 {
     margin-bottom: 15px;
+}
+.mb-0 {
+    margin-bottom: 0;
 }
 .mb-20 {
     margin-bottom: 20px;
@@ -40,7 +40,12 @@ hr {
 .mr-5 {
     margin-right: 5px;
 }
-
+.ml-auto {
+    margin-left: auto;
+}
+.mr-auto {
+    margin-right: auto;
+}
 /*--paddings--*/
 .pt-7 {
     padding-top: 7px;
