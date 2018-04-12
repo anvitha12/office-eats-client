@@ -8,6 +8,12 @@
     .navbar-brand {
         height: auto;
     }
+    .navbar-nav>li>a {
+        color: #000;
+        &:focus, &:active, &:hover {
+            color: $brand-color
+        }
+    }
 }
 
 @media (min-width: 768px) {
