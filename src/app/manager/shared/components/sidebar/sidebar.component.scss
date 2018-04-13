@@ -5,15 +5,12 @@
   max-width: 200px;
   min-height: 100%;
   position: fixed;
-  background: $brand-color;
-  color: $color-white;
+  border-right: 2px solid $brand-color;
   transition: all 0.3s;
   z-index: 1;
   .sidebar-header {
       padding: 20px;
-      background: $brand-color;
       text-align: center;
-      border-bottom: 1px solid rgba(255,255,255,.2);
       .profile {
           .avatar {
             width: 80px;
@@ -27,8 +24,8 @@
             background-color: $color-white;
             vertical-align: middle;
             text-transform: uppercase;
-            color: $brand-color-lightest;
-            border-color: $brand-color-lightest;
+            color: $brand-color-light;
+            border-color: $brand-color-light;
             display: inline-block;
             overflow: hidden;
             border-radius: 50%;
@@ -41,9 +38,9 @@
           }
           .sign-out {
               a {
-                  color: $brand-color-lightest;
-                  &:hover {
-                      color: $brand-color-lightest;
+                  color: $brand-color-light;
+                  &:hover, &:focus, &:active, &.focus, &.active {
+                      color: $brand-color-light;
                       text-decoration: none;
                   }
               }
@@ -56,32 +53,25 @@
          &.active a{
             color: $color-white;
             background: $brand-color-dark;
-            &::before {
-              content: '';
-              transform: translateY(-50%);
-              border-style: solid;
-              border-width: 6px 7px 6px 0;
-              border-color: transparent #FBFDFE transparent transparent;
-              position: absolute;
-              top: 50%;
-              left: 0;
-              right: 0;
-              height: 1px;
-              background-color:transparent;
-            }
          }
       }
       li>a{
           padding: 10px;
           font-size: 1.2em;
-          color: $color-white;
+          color: #000;
           display: block;
-          &:hover{
+          &:hover, &:focus, &:active, &.focus, &.active {
               color: $color-white;
               background: $brand-color-dark;
               text-decoration: none;
           }
       }
+  }
+  .sidebar-logo {
+    position: absolute;
+    bottom: 20px;
+    padding: 20px;
+    opacity: 0.6;
   }
 }
 

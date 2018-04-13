@@ -155,10 +155,10 @@
                 </div>
               </td>
               <td>
-                <button class="btn btn-primary" type="button">Remind</button>
+                <button class="btn btn-primary" type="button" disabled>Remind</button>
               </td>
               <td>
-                <button class="btn btn-primary" type="button">Order</button>
+                <button class="btn btn-primary" type="button" disabled>Order</button>
               </td>
               <td>
                 <button class="btn btn-danger" type="button" (click)="removeAttendee(index)">Delete</button>
@@ -219,7 +219,7 @@
       <!-- Form actions restaurants -->
       <div class="form-group">
         <div class="col-md-12 text-right">
-          <button type="submit" class="btn btn-primary" [disabled]="!formGroup.valid" (click)="createEvent()">Save</button>
+          <button type="submit" class="btn btn-brand" [disabled]="!formGroup.valid" (click)="createEvent()">Save</button>
         </div>
       </div>
     </form>
