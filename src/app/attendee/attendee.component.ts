@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute  } from '@angular/router';
 
 @Component({
   selector: 'app-attendee',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./attendee.component.scss']
 })
 export class AttendeeComponent implements OnInit {
-
-  constructor() { }
+  returnUrl: string;
+  constructor(private activedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    console.log(this.activedRoute.snapshot.queryParams);
   }
 
 }
