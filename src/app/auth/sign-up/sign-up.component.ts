@@ -20,7 +20,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   signUpForm: FormGroup;
   corporates: Corporate[];
-
+  emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
   private unsubscribe: Subject<void> = new Subject();
 
   constructor(
@@ -50,7 +50,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
         Validators.required
       ]),
       email: new FormControl('', [
-        Validators.email,
+        Validators.required,
+        Validators.pattern(this.emailPattern)
       ]),
       corporate_id: new FormControl('', [
         Validators.required

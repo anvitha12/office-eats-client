@@ -18,6 +18,7 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   returnUrl: string;
   signInForm: FormGroup;
+  emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
   private unsubscribe: Subject<void> = new Subject();
 
   constructor(
@@ -35,7 +36,8 @@ export class SignInComponent implements OnInit, OnDestroy {
 
     this.signInForm = new FormGroup({
       email: new FormControl('', [
-        Validators.email
+        Validators.required,
+        Validators.pattern(this.emailPattern)
       ]),
       password: new FormControl('', [
         Validators.required,

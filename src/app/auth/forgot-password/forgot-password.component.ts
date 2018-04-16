@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { UserService } from '../../shared/services/user.service';
-import { User } from '../../shared/models/user'
+import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'app-forgot-password',
@@ -13,6 +13,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   user: User;
   formGroup: FormGroup;
+  emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
   constructor(private titleService: Title,
     private userService: UserService) { }
 
@@ -21,11 +22,12 @@ export class ForgotPasswordComponent implements OnInit {
     this.formGroup = new FormGroup({
       email: new FormControl('', [
         Validators.required,
-        Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)
-      ]),
+        Validators.pattern(this.emailPattern)
+      ])
     });
   }
+
   onSubmit() {
-    console.log(this.formGroup.value)
+    console.log(this.formGroup.value);
   }
 }
