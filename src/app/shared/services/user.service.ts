@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
-import { User, CommonResponse, AuthorizeResposne } from '../models/user';
+import { User, CommonResponse,  CreateUserResposne, AuthorizeResposne } from '../models/user';
 import { baseURL } from '../constants/base-url';
 import { StorageService } from './storage.service';
 
@@ -29,14 +29,8 @@ export class UserService {
   }
 
   authorize(user: User) {
-    const formData = new FormData();
-      for (const key in user) {
-        if (user[key]) {
-          formData.append(key, user[key]);
-        }
-      }
     return this.httpClient
-      .post<AuthorizeResposne>(this.authorizeUrl, formData)
+      .post<AuthorizeResposne>(this.authorizeUrl, user)
       .map(res => {
         if (res.token) {
           this.storage.store('currentUser', { id: res.id, token: res.token });
@@ -58,16 +52,10 @@ export class UserService {
   }
 
   createUser(user: User) {
-    const formData = new FormData();
-    for (const key in user) {
-      if (user[key]) {
-        formData.append(key, user[key]);
-      }
-    }
     return this.httpClient
-      .post<CommonResponse>(
+      .post<CreateUserResposne>(
         this.createUserUrl,
-        formData
+        user
       )
       .map(res => {
         return res;

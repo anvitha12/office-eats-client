@@ -35,11 +35,11 @@ export class SignInComponent implements OnInit, OnDestroy {
     this.returnUrl = this.activedRoute.snapshot.queryParams['returnUrl'] || '/manager';
 
     this.signInForm = new FormGroup({
-      email: new FormControl('', [
+      u_email: new FormControl('', [
         Validators.required,
         Validators.pattern(this.emailPattern)
       ]),
-      password: new FormControl('', [
+      u_password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(30)
@@ -53,9 +53,9 @@ export class SignInComponent implements OnInit, OnDestroy {
       .authorize(this.signInForm.value)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((data) => {
-        if (data.status === 201) {
+        if (data.obj_response.status === 201) {
           this.router.navigate([this.returnUrl]);
-        } else if (data.status === 200) {
+        } else if (data.obj_response.status === 200) {
           this.toastr.error('Invalid email or password.', 'Error!', { dismiss: 'controlled', showCloseButton: true, toastLife: 4000 });
         }
       });

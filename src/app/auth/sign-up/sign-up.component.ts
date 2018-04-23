@@ -36,32 +36,32 @@ export class SignUpComponent implements OnInit, OnDestroy {
     this.titleService.setTitle('Sign Up | Office Eats');
 
     this.signUpForm = new FormGroup({
-      first_name: new FormControl('', [
+      u_f_name: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50)
       ]),
-      last_name: new FormControl('', [
+      u_l_name: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50)
       ]),
-      gender: new FormControl('', [
+      u_gender: new FormControl('', [
         Validators.required
       ]),
-      email: new FormControl('', [
+      u_email: new FormControl('', [
         Validators.required,
         Validators.pattern(this.emailPattern)
       ]),
       corporate_id: new FormControl('', [
         Validators.required
       ]),
-      phone: new FormControl('', [
+      u_phone: new FormControl('', [
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(12)
       ]),
-      password: new FormControl('', [
+      u_password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(30)
@@ -82,10 +82,10 @@ export class SignUpComponent implements OnInit, OnDestroy {
       .createUser(this.signUpForm.value)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(data => {
-        if (data.status === 201) {
+        if (data.obj_response.status === 201) {
           this.toastr.success('Successfully registerd.', 'Success!', { dismiss: 'controlled', showCloseButton: true, toastLife: 4000 });
           this.router.navigate(['/auth/sign-in']);
-        } else if (data.status === 200) {
+        } else if (data.obj_response.status === 200) {
           this.toastr.error('Email already exists.', 'Error!', { dismiss: 'controlled', showCloseButton: true, toastLife: 4000 });
         }
       });

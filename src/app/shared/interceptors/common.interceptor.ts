@@ -16,6 +16,7 @@ export class CommonInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const headers = request.headers
+      .set('Content-Type', 'application/json')
       .set('Client-Service', 'frontend-client')
       .set('Auth-Key', 'cmsrestapi');
     const cloneReq = request.clone({ headers });

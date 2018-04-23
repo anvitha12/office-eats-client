@@ -1,3 +1,5 @@
+import { ObjResponse } from './common';
+
 export class User {
   first_name: string;
   last_name: string;
@@ -16,6 +18,11 @@ export class CommonResponse {
 export class AuthorizeResposne {
   token: string;
   id: number;
-  status: number;
-  message: string;
+  obj_response: ObjResponse;
+}
+
+export class CreateUserResposne {
+  token: string;
+  id: number;
+  obj_response: ObjResponse;
 }
