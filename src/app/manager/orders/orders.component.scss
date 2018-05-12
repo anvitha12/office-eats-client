@@ -1,0 +1,30 @@
+@import '~sass/_variables.scss';
+
+.cart-block {
+    float: right;
+    position: relative;
+    margin-top: 7px;
+    .cart-count {
+        position: absolute;
+        background-color: $brand-color;
+        color: #fff;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        text-align: center;
+        padding: 3px 0 0 0;
+        vertical-align: middle;
+        left: -18px;
+    }
+    .cart-icon {
+        display: inline;
+        padding: 10px;
+        border: 1px solid gray;
+        border-radius: 50%;
+    }
+    .total-price {
+        float: right;
+        font-weight: bold;
+        margin-left: 10px;  
+    }
+}
