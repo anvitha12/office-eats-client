@@ -83,6 +83,16 @@ export class NewEventComponent implements OnInit {
         this.restaurants = data.restaurants_details;
       }
     });
+
+    this.formGroup.valueChanges.subscribe(data => {
+      if (data.attendeesList && data.attendees.length) {
+        const budgetForEachAttendee  = data.budget / data.attendees.length;
+        data.attendees.forEach(attendee => {
+          attendee.budget = budgetForEachAttendee;
+        });
+      }
+      console.log(data);
+    });
   }
 
   goBack() {
