@@ -50,6 +50,8 @@ export class NewEventComponent implements OnInit {
       touch: true,
       easing: 'ease'
     };
+    const eventTime = new Date();
+    eventTime.setHours(11, 30, 0, 0);
 
     this.formGroup = new FormGroup({
       meetingTitle: new FormControl('', [
@@ -60,7 +62,7 @@ export class NewEventComponent implements OnInit {
       date: new FormControl('', [
         Validators.required
       ]),
-      time: new FormControl('', [
+      time: new FormControl(eventTime, [
         Validators.required
       ]),
       venue: new FormControl('', [
@@ -83,20 +85,43 @@ export class NewEventComponent implements OnInit {
         this.restaurants = data.restaurants_details;
       }
     });
-
-    this.formGroup.valueChanges.subscribe(data => {
-      if (data.attendeesList && data.attendees.length) {
-        const budgetForEachAttendee  = data.budget / data.attendees.length;
-        data.attendees.forEach(attendee => {
-          attendee.budget = budgetForEachAttendee;
-        });
-      }
-      console.log(data);
-    });
   }
 
   goBack() {
     history.back();
+  }
+
+  get attendees() {
+      return this.formGroup.controls.attendees as FormArray;
+  }
+
+  onChangeBudget() {
+    if (this.attendees.controls && this.attendees.controls.length) {
+      if (this.formGroup.value.budget) {
+        const budgetForEachAttendee  = this.formGroup.value.budget / this.attendees.controls.length;
+        if (this.formGroup.value.splitEven) {
+          this.attendees.controls.forEach((attendee) => {
+            attendee.get('budget').setValue(budgetForEachAttendee);
+          });
+        }
+      } else {
+        this.attendees.controls.forEach((attendee) => {
+          attendee.get('budget').setValue(0);
+        });
+      }
+    }
+  }
+
+  onAttendeeBudgetChange() {
+    let budget = 0;
+      if (this.attendees.controls && this.attendees.controls.length) {
+        this.attendees.controls.forEach((attendee) => {
+          budget = budget + attendee.get('budget').value;
+        });
+        this.formGroup.patchValue({
+          budget: budget
+        });
+      }
   }
 
   createAttende(email): FormGroup {
@@ -121,9 +146,11 @@ export class NewEventComponent implements OnInit {
               });
               if (!isEmailExists) {
                 (<FormArray>this.formGroup.get('attendees')).push(this.createAttende(email));
+                this.onChangeBudget();
               }
             } else {
               (<FormArray>this.formGroup.get('attendees')).push(this.createAttende(email));
+              this.onChangeBudget();
             }
           }
         }
@@ -135,6 +162,7 @@ export class NewEventComponent implements OnInit {
     const control = <FormArray>this.formGroup.controls['attendees'];
     // remove the chosen row
     control.removeAt(index);
+    this.onChangeBudget();
   }
 
   onRestaurantSelect(restaurant: Restaurant) {
