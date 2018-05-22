@@ -21,6 +21,7 @@ export class NewEventComponent implements OnInit {
   minDateValue: Date;
   public carouselTile: NgxCarousel;
   managerEmail: string;
+  orderType: number;
 
   constructor(
     private router: Router,
@@ -75,15 +76,21 @@ export class NewEventComponent implements OnInit {
       ]),
       splitEven: new FormControl(false),
       orderType: new FormControl('', [Validators.required]),
+      attendeesCount: new FormControl('', [
+        Validators.required,
+      ]),
       attendeesList: new FormControl(this.managerEmail, [Validators.required]),
       attendees: new FormArray([this.createAttende(this.managerEmail)]),
-      selectedRestaurants: this.formBuilder.array([], Validators.required)
     });
 
     this.managerService.getManagerCorporateResturants().subscribe(data => {
       if (data.status === 200) {
         this.restaurants = data.restaurants_details;
       }
+    });
+
+    this.formGroup.get('orderType').valueChanges.subscribe(value => {
+      this.setOrderype(parseInt(value, 10));
     });
   }
 
@@ -93,6 +100,29 @@ export class NewEventComponent implements OnInit {
 
   get attendees() {
       return this.formGroup.controls.attendees as FormArray;
+  }
+
+  setOrderype(orderType: number) {
+    const budget = this.formGroup.get('budget');
+    const attendeesList = this.formGroup.get('attendeesList');
+    const attendees = this.attendees;
+    const attendeesCount = this.formGroup.get('attendeesCount');
+    if (orderType === 0) {
+      this.orderType = 0;
+      budget.setValidators(Validators.required);
+      attendeesList.setValidators(Validators.required);
+      attendees.setValidators(Validators.required);
+      attendeesCount.clearValidators();
+    } else {
+      this.orderType = 1;
+      budget.clearValidators();
+      attendeesList.clearValidators();
+      attendees.controls.forEach(c => c.clearValidators());
+      attendeesCount.setValidators(Validators.required);
+    }
+    budget.updateValueAndValidity();
+    attendeesList.updateValueAndValidity();
+    attendeesCount.updateValueAndValidity();
   }
 
   onChangeBudget() {

@@ -61,21 +61,7 @@
             </span>
           </div>
         </div>
-        <div class="form-group" [ngClass]="displayFieldCss('budget')">
-          <label class="col-md-3 control-label" for="budget">Budget*</label>
-          <div class="col-md-5">
-            <input id="budget" name="budget" currencyMask (blur)="onChangeBudget()" [options]="{align: 'left'}" type="text" placeholder="Budget" class="form-control" formControlName='budget'>
-            <span *ngIf="formGroup.get('budget').invalid && formGroup.get('budget').touched" class="help-block">
-              <div *ngIf="formGroup.get('budget').hasError('required')">Budget is required</div>
-            </span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-md-3 text-right" for="splitEven">Split Even</label>
-          <div class="col-md-5">
-            <p-checkbox name="splitEven" (onChange)="onChangeBudget()" formControlName='splitEven' binary="true"></p-checkbox>
-          </div>
-        </div>
+        
         <div class="form-group" [ngClass]="displayFieldCss('orderType')">
           <label class="col-md-3 text-right" for="orderType">Order Type*</label>
           <div class="col-md-5">
@@ -89,7 +75,31 @@
             </span>
           </div>
         </div>
-        <div class="form-group" [ngClass]="displayFieldCss('attendeesList')">
+        <div class="form-group" [ngClass]="displayFieldCss('budget')" *ngIf="orderType == 1">
+          <label class="col-md-3 control-label" for="attendeesCount">Attendees Count*</label>
+          <div class="col-md-5">
+            <input id="attendeesCount" name="attendeesCount"  type="text" placeholder="Attendees Count" class="form-control" formControlName='attendeesCount'>
+            <span *ngIf="formGroup.get('attendeesCount').invalid && formGroup.get('attendeesCount').touched" class="help-block">
+              <div *ngIf="formGroup.get('attendeesCount').hasError('required')">Attendees count is required</div>
+            </span>
+          </div>
+        </div>
+        <div class="form-group" [ngClass]="displayFieldCss('budget')" *ngIf="orderType == 0">
+          <label class="col-md-3 control-label" for="budget">Budget*</label>
+          <div class="col-md-5">
+            <input id="budget" name="budget" currencyMask (blur)="onChangeBudget()" [options]="{align: 'left'}" type="text" placeholder="Budget" class="form-control" formControlName='budget'>
+            <span *ngIf="formGroup.get('budget').invalid && formGroup.get('budget').touched" class="help-block">
+              <div *ngIf="formGroup.get('budget').hasError('required')">Budget is required</div>
+            </span>
+          </div>
+        </div>
+        <div class="form-group" *ngIf="orderType == 0">
+          <label class="col-md-3 text-right" for="splitEven">Split Even</label>
+          <div class="col-md-5">
+            <p-checkbox name="splitEven" (onChange)="onChangeBudget()" formControlName='splitEven' binary="true"></p-checkbox>
+          </div>
+        </div>
+        <div class="form-group" [ngClass]="displayFieldCss('attendeesList')" *ngIf="orderType == 0">
           <label class="col-md-3 control-label" for="attendees">Attendees</label>
           <div class="col-md-5">
             <textarea rows="5" class="form-control" formControlName='attendeesList'></textarea>
@@ -102,7 +112,7 @@
           </div>
         </div>
       </div>
-      <div class="table-responsive">
+      <div class="table-responsive" *ngIf="orderType == 0">
         <table class="table align-middle table-bordered">
           <thead>
             <tr>
