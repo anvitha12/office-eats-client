@@ -21,7 +21,7 @@ export class NewEventComponent implements OnInit {
   minDateValue: Date;
   public carouselTile: NgxCarousel;
   managerEmail: string;
-  orderType: number;
+  eventOrderType: number;
 
   constructor(
     private router: Router,
@@ -89,7 +89,7 @@ export class NewEventComponent implements OnInit {
       }
     });
 
-    this.formGroup.get('orderType').valueChanges.subscribe(value => {
+    this.formGroup.get('eventOrderType').valueChanges.subscribe(value => {
       this.setOrderype(parseInt(value, 10));
     });
   }
@@ -102,19 +102,19 @@ export class NewEventComponent implements OnInit {
       return this.formGroup.controls.users as FormArray;
   }
 
-  setOrderype(orderType: number) {
-    const budget = this.formGroup.get('budget');
+  setOrderype(eventOrderType: number) {
+    const budget = this.formGroup.get('eventBudget');
     const eventUsers = this.formGroup.get('eventUsers');
     const users = this.users;
     const attendeesCount = this.formGroup.get('attendeesCount');
-    if (orderType === 0) {
-      this.orderType = 0;
+    if (eventOrderType === 0) {
+      this.eventOrderType = 0;
       budget.setValidators(Validators.required);
       eventUsers.setValidators(Validators.required);
       users.setValidators(Validators.required);
       attendeesCount.clearValidators();
     } else {
-      this.orderType = 1;
+      this.eventOrderType = 1;
       budget.clearValidators();
       eventUsers.clearValidators();
       users.controls.forEach(c => c.clearValidators());
@@ -127,16 +127,16 @@ export class NewEventComponent implements OnInit {
 
   onChangeBudget() {
     if (this.users.controls && this.users.controls.length) {
-      if (this.formGroup.value.budget) {
-        const budgetForEachAttendee  = this.formGroup.value.budget / this.users.controls.length;
+      if (this.formGroup.value.eventBudget) {
+        const budgetForEachAttendee  = this.formGroup.value.eventBudget / this.users.controls.length;
         if (this.formGroup.value.eventSplitEven) {
           this.users.controls.forEach((attendee) => {
-            attendee.get('budget').setValue(budgetForEachAttendee);
+            attendee.get('eventUserBudget').setValue(budgetForEachAttendee);
           });
         }
       } else {
         this.users.controls.forEach((attendee) => {
-          attendee.get('budget').setValue(0);
+          attendee.get('eventUserBudget').setValue(0);
         });
       }
     }
