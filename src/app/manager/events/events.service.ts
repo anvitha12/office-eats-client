@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
-import { baseURL } from '../../shared/constants/base-url';
+import { baseURLNew } from '../../shared/constants/base-url';
 import { CommonResponse } from '../../shared/models/user';
 import { Event, EventListResponse } from './models/event';
 
@@ -11,9 +11,9 @@ export class EventsService {
   constructor(private httpClient: HttpClient) {
   }
 
-  private createEventUrl =  baseURL + 'events/create';
-  private getEventsUrl = baseURL + 'Events/ViewEvents';
-  private deleteEventUrl = baseURL + 'Events/DeleteEvents';
+  private createEventUrl =  baseURLNew + 'events/create';
+  private getEventsUrl = baseURLNew + 'Events/ViewEvents';
+  private deleteEventUrl = baseURLNew + 'Events/DeleteEvents';
 
   createEvent(event: Event) {
     return this.httpClient

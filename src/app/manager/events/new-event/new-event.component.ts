@@ -55,32 +55,32 @@ export class NewEventComponent implements OnInit {
     eventTime.setHours(11, 30, 0, 0);
 
     this.formGroup = new FormGroup({
-      meetingTitle: new FormControl('', [
+      eventTitle: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50)
       ]),
-      date: new FormControl('', [
+      eventDate: new FormControl('', [
         Validators.required
       ]),
-      time: new FormControl(eventTime, [
+      eventTime: new FormControl(eventTime, [
         Validators.required
       ]),
-      venue: new FormControl('', [
+      eventVenueLocation: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50)
       ]),
-      budget: new FormControl('', [
+      eventBudget: new FormControl('', [
         Validators.required
       ]),
-      splitEven: new FormControl(false),
-      orderType: new FormControl('', [Validators.required]),
+      eventSplitEven: new FormControl(false),
+      eventOrderType: new FormControl('', [Validators.required]),
       attendeesCount: new FormControl('', [
         Validators.required,
       ]),
-      attendeesList: new FormControl(this.managerEmail, [Validators.required]),
-      attendees: new FormArray([this.createAttende(this.managerEmail)]),
+      eventUsers: new FormControl(this.managerEmail, [Validators.required]),
+      users: new FormArray([this.createAttende(this.managerEmail)]),
     });
 
     this.managerService.getManagerCorporateResturants().subscribe(data => {
@@ -98,44 +98,44 @@ export class NewEventComponent implements OnInit {
     history.back();
   }
 
-  get attendees() {
-      return this.formGroup.controls.attendees as FormArray;
+  get users() {
+      return this.formGroup.controls.users as FormArray;
   }
 
   setOrderype(orderType: number) {
     const budget = this.formGroup.get('budget');
-    const attendeesList = this.formGroup.get('attendeesList');
-    const attendees = this.attendees;
+    const eventUsers = this.formGroup.get('eventUsers');
+    const users = this.users;
     const attendeesCount = this.formGroup.get('attendeesCount');
     if (orderType === 0) {
       this.orderType = 0;
       budget.setValidators(Validators.required);
-      attendeesList.setValidators(Validators.required);
-      attendees.setValidators(Validators.required);
+      eventUsers.setValidators(Validators.required);
+      users.setValidators(Validators.required);
       attendeesCount.clearValidators();
     } else {
       this.orderType = 1;
       budget.clearValidators();
-      attendeesList.clearValidators();
-      attendees.controls.forEach(c => c.clearValidators());
+      eventUsers.clearValidators();
+      users.controls.forEach(c => c.clearValidators());
       attendeesCount.setValidators(Validators.required);
     }
     budget.updateValueAndValidity();
-    attendeesList.updateValueAndValidity();
+    eventUsers.updateValueAndValidity();
     attendeesCount.updateValueAndValidity();
   }
 
   onChangeBudget() {
-    if (this.attendees.controls && this.attendees.controls.length) {
+    if (this.users.controls && this.users.controls.length) {
       if (this.formGroup.value.budget) {
-        const budgetForEachAttendee  = this.formGroup.value.budget / this.attendees.controls.length;
-        if (this.formGroup.value.splitEven) {
-          this.attendees.controls.forEach((attendee) => {
+        const budgetForEachAttendee  = this.formGroup.value.budget / this.users.controls.length;
+        if (this.formGroup.value.eventSplitEven) {
+          this.users.controls.forEach((attendee) => {
             attendee.get('budget').setValue(budgetForEachAttendee);
           });
         }
       } else {
-        this.attendees.controls.forEach((attendee) => {
+        this.users.controls.forEach((attendee) => {
           attendee.get('budget').setValue(0);
         });
       }
@@ -144,8 +144,8 @@ export class NewEventComponent implements OnInit {
 
   onAttendeeBudgetChange() {
     let budget = 0;
-      if (this.attendees.controls && this.attendees.controls.length) {
-        this.attendees.controls.forEach((attendee) => {
+      if (this.users.controls && this.users.controls.length) {
+        this.users.controls.forEach((attendee) => {
           budget = budget + attendee.get('budget').value;
         });
         this.formGroup.patchValue({
@@ -156,10 +156,10 @@ export class NewEventComponent implements OnInit {
 
   createAttende(email): FormGroup {
     return this.formBuilder.group({
-      email: [email, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      name: ['', Validators.required],
-      budget: [''],
-      foodPreference: ['', Validators.required]
+      eventUserEmail: [email, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      eventUserName: ['', Validators.required],
+      eventUserBudget: [''],
+      eventUserFoodPreference: ['', Validators.required]
     });
   }
 
@@ -224,7 +224,6 @@ export class NewEventComponent implements OnInit {
   }
 
   createEvent() {
-    if (this.formGroup.valid) {
       this.eventsService.createEvent(this.formGroup.value)
       .subscribe(data => {
         if (data.status === 201) {
@@ -233,7 +232,6 @@ export class NewEventComponent implements OnInit {
         }
       }
     );
-    }
   }
 
   isFieldValid(field: string) {
@@ -247,8 +245,8 @@ export class NewEventComponent implements OnInit {
   }
 
   isDynmaicFieldValid(field: string, i: number) {
-    return !this.formGroup.get('attendees').get(i.toString()).get(field).valid
-    && this.formGroup.get('attendees').get(i.toString()).get(field).touched;
+    return !this.formGroup.get('users').get(i.toString()).get(field).valid
+    && this.formGroup.get('users').get(i.toString()).get(field).touched;
   }
 
   displayDynamicFieldCss(field: string, i: number) {
